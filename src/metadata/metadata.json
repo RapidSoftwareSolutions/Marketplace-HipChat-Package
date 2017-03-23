@@ -1,0 +1,4161 @@
+{
+    "package": "HipChat",
+    "tagline": "Build bots or slash commands for this enterprise chat app.",
+    "description": "Connect to the HipChat Enterprise Messaging API to build bots or slash commands for this enterprise chat app. Test an API call and export the code snippet.",
+    "image": "https://logo.clearbit.com/hipchat.com?s=128",
+    "repo": "https://github.com/RapidSoftwareSolutions/Marketplace-HipChat-Package",
+    "keywords": [
+        "API",
+        "Group chat",
+        "video chat",
+        "screen sharing",
+        "chat",
+        "HipChat"
+    ],
+    "accounts": {
+        "domain": "hipchat.com",
+        "credentials": [
+            "clientId",
+            "clientSecret"
+        ]
+    },
+    "blocks": [
+        {
+            "name": "getAccessToken",
+            "description": "Geta access token.",
+            "args": [
+                {
+                    "name": "clientId",
+                    "type": "credentials",
+                    "info": "Client identifier.",
+                    "required": true
+                },
+                {
+                    "name": "clientSecret",
+                    "type": "credentials",
+                    "info": "Client secret.",
+                    "required": true
+                },
+                {
+                    "name": "redirectUri",
+                    "type": "String",
+                    "info": "URL in your app where users will be sent after authorization.",
+                    "required": true
+                },
+                {
+                    "name": "code",
+                    "type": "String",
+                    "info": "A one-time use code that may be exchanged for a bearer token.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getCapabilities",
+            "description": "Gets the capabilities descriptor.",
+            "args": [],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAddonCapabilitiesSchema",
+            "description": "Gets the addon capabilities descriptor schema.",
+            "args": [
+                {
+                    "name": "draft",
+                    "type": "String",
+                    "info": "The json schema draft version to use. One of: v2, v4.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getEmoticon",
+            "description": "Get emoticon details.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "emoticonIdOrKey",
+                    "type": "String",
+                    "info": "The id or shortcut of the emoticon.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllEmoticons",
+            "description": "Gets all emoticons for the current group.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "startIndex",
+                    "type": "Number",
+                    "info": "The start index for the result set.",
+                    "required": false
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of results.",
+                    "required": false
+                },
+                {
+                    "name": "type",
+                    "type": "String",
+                    "info": "The type of emoticons to get. One of: global, group, all.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getGlobalAction",
+            "description": "Retrieve a global action.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this action.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createGlobalAction",
+            "description": "Create a global action. Example: {\"target\": {\"options\": {},\"key\": \"\"},\"weight\": \"\",\"location\": \"\",\"key\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\"}],\"type\": \"\"}],\"type\": \"\"}],\"name\": {\"i18n\": \"\",\"value\": \"\"}}.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this action.",
+                    "required": true
+                },
+                {
+                    "name": "targetOptions",
+                    "type": "JSON",
+                    "info": "An object containing options which vary based on the type of target.",
+                    "required": false
+                },
+                {
+                    "name": "targetKey",
+                    "type": "String",
+                    "info": "The key of a dialog glance or web panel that should be opened in response to this action.",
+                    "required": true
+                },
+                {
+                    "name": "weight",
+                    "type": "Number",
+                    "info": "Determines the order in which the action appears in menu or list.",
+                    "required": false
+                },
+                {
+                    "name": "location",
+                    "type": "String",
+                    "info": "The location of this action Valid values hipchat message action hipchat input action.",
+                    "required": true
+                },
+                {
+                    "name": "conditions",
+                    "type": "Array",
+                    "info": "Conditions determine whether this action is shown A mixed array of the following types. Example [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\"}],\"type\": \"\"}],\"type\": \"\"}].",
+                    "required": true
+                },
+                {
+                    "name": "i18n",
+                    "type": "String",
+                    "info": "The optional localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "value",
+                    "type": "String",
+                    "info": "The default text.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteGlobalAction",
+            "description": "Delete a global action.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this action.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getGlobalDialog",
+            "description": "Retrieve a global dialog.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this dialog.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createGlobalDialog",
+            "description": "Create a global dialog. Example: {\"url\": \"\",\"authentication\": \"\",\"options\": {\"style\": \"\",\"hint\": {\"i18n\": \"\",\"value\": \"\"},\"filter\": {\"placeholder\": {\"i18n\": \"\",\"value\": \"\"}},\"primaryAction\": {\"enabled\": \"\",\"name\": {\"i18n\": \"\",\"value\": \"\"},\"key\": \"\"},\"secondaryActions\": [{\"enabled\": false,\"name\": {\"i18n\": \"\",\"value\": \"\"},\"key\": \"\"}],\"size\": {\"width\": \"\",\"height\": \"\"},\"key\": \"\",\"title\": {\"i18n\": \"\",\"value\": \"\"}}}.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this dialog.",
+                    "required": true
+                },
+                {
+                    "name": "url",
+                    "type": "String",
+                    "info": "The url where the dialog content is hosted.",
+                    "required": true
+                },
+                {
+                    "name": "authentication",
+                    "type": "String",
+                    "info": "The authentication method for this dialog. One of: jwt, none.",
+                    "required": false
+                },
+                {
+                    "name": "optionsStyle",
+                    "type": "String",
+                    "info": "The dialog style. One of: normal, warning.",
+                    "required": false
+                },
+                {
+                    "name": "optionsHintI18n",
+                    "type": "String",
+                    "info": "The optional localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "optionsHintValue",
+                    "type": "String",
+                    "info": "The default text.",
+                    "required": true
+                },
+                {
+                    "name": "optionsFilterPlaceholderI18n",
+                    "type": "String",
+                    "info": "The optional localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "optionsFilterPlaceholderValue",
+                    "type": "String",
+                    "info": "The default text.",
+                    "required": true
+                },
+                {
+                    "name": "optionsPrimaryActionEnabled",
+                    "type": "Boolean",
+                    "info": "Whether button is disabled or enabled.",
+                    "required": false
+                },
+                {
+                    "name": "optionsPrimaryActionNameI18n",
+                    "type": "String",
+                    "info": "The optional localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "optionsPrimaryActionNameValue",
+                    "type": "String",
+                    "info": "The default text.",
+                    "required": true
+                },
+                {
+                    "name": "optionsPrimaryActionKey",
+                    "type": "String",
+                    "info": "A key that can be used to register an event listener.",
+                    "required": false
+                },
+                {
+                    "name": "optionsSecondaryActions",
+                    "type": "Array",
+                    "info": "The secondary actions of the dialog rendered as link buttons. Example [{\"enabled\": false,\"name\": {\"i18n\": \"\",\"value\": \"\"},\"key\": \"\"}].",
+                    "required": true
+                },
+                {
+                    "name": "optionsSizeWidth",
+                    "type": "String",
+                    "info": "The width of the dialog either in pixels px or as a percentage.",
+                    "required": true
+                },
+                {
+                    "name": "optionsSizeHeight",
+                    "type": "String",
+                    "info": "The height of the dialog either in pixels px or as a percentage.",
+                    "required": true
+                },
+                {
+                    "name": "optionsTitleI18n",
+                    "type": "String",
+                    "info": "The optional localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "optionsTitleValue",
+                    "type": "String",
+                    "info": "The default text.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteGlobalDialog",
+            "description": "Delete a global.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this dialog.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getGlobalExternalPage",
+            "description": "Retrieve a global external page.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this external page.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createGlobalExternalPage",
+            "description": "Create a global external page.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this external page.",
+                    "required": true
+                },
+                {
+                    "name": "url",
+                    "type": "String",
+                    "info": "The URL of the external page.",
+                    "required": true
+                },
+                {
+                    "name": "nameI18n",
+                    "type": "String",
+                    "info": "The optional localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "nameValue",
+                    "type": "String",
+                    "info": "The default text.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this external page.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteGlobalExternalPage",
+            "description": "Delete a global external page.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this external page.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getGlobalGlance",
+            "description": "Retrieve a global glance.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this glance.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createGlobalGlance",
+            "description": "Create a global glance. Example {\"target\": {\"options\": {},\"key\": \"\"},\"weight\": \"\",\"key\": \"\",\"queryUrl\": \"\",\"icon\": {\"url\": \"\",\"url@2x\": \"\"},\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\"}],\"type\": \"\"}],\"type\": \"\"}],\"name\": {\"i18n\": \"\",\"value\": \"\"}}.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this glance.",
+                    "required": true
+                },
+                {
+                    "name": "targetOptions",
+                    "type": "JSON",
+                    "info": "An object containing options which vary based on the type of target.",
+                    "required": false
+                },
+                {
+                    "name": "targetKey",
+                    "type": "String",
+                    "info": "The key of a dialog glance or web panel that should be opened in response to this action.",
+                    "required": true
+                },
+                {
+                    "name": "weight",
+                    "type": "Number",
+                    "info": "Determines the order in which glances appear Glances are displayed top to bottom in order of ascending weight.",
+                    "required": false
+                },
+                {
+                    "name": "queryUrl",
+                    "type": "String",
+                    "info": "The URL of the resource providing the glance content.",
+                    "required": false
+                },
+                {
+                    "name": "iconUrl",
+                    "type": "String",
+                    "info": "Url for the icon.",
+                    "required": true
+                },
+                {
+                    "name": "iconUrl2x",
+                    "type": "String",
+                    "info": "Url for the retina version of the icon.",
+                    "required": true
+                },
+                {
+                    "name": "conditions",
+                    "type": "Array",
+                    "info": "Conditions determine whether this glance is shown. Example [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\"}],\"type\": \"\"}],\"type\": \"\"}].",
+                    "required": true
+                },
+                {
+                    "name": "nameI18n",
+                    "type": "String",
+                    "info": "The optional localization key.",
+                    "required": false
+                },
+                {
+                    "name": "nameValue",
+                    "type": "String",
+                    "info": "The display name of the glance text.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteGlobalGlance",
+            "description": "Delete a global glance.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this glance.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getGlobalWebPanel",
+            "description": "Retrieve a global web panel.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this web panel.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createGlobalWebPanel",
+            "description": "Create a global web panel. Example {\"name\": {\"i18n\": \"\",\"value\": \"\"},\"weight\": 111,\"url\": \"\",\"authentication\": \"\",\"location\": \"\",\"key\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\"}],\"type\": \"\"}],\"type\": \"\"}],\"icon\": {\"url\": \"\",\"url@2x\": \"\"}}.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this web panel.",
+                    "required": true
+                },
+                {
+                    "name": "nameI18n",
+                    "type": "String",
+                    "info": "Localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "nameValue",
+                    "type": "String",
+                    "info": "The display name of the webPanel.",
+                    "required": true
+                },
+                {
+                    "name": "weight",
+                    "type": "Number",
+                    "info": "Determines the order in which webPanel appear.",
+                    "required": false
+                },
+                {
+                    "name": "url",
+                    "type": "String",
+                    "info": "The URL of the resource providing the view content.",
+                    "required": true
+                },
+                {
+                    "name": "authentication",
+                    "type": "String",
+                    "info": "The authentication method for this webpanel. One of: jwt, none.",
+                    "required": false
+                },
+                {
+                    "name": "location",
+                    "type": "String",
+                    "info": "The location of this webPanel. One of: hipchat, sidebar, right.",
+                    "required": true
+                },
+                {
+                    "name": "conditions",
+                    "type": "Array",
+                    "info": "Conditions determine whether this web panel is shown. Example [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\"}],\"type\": \"\"}],\"type\": \"\"}].",
+                    "required": false
+                },
+                {
+                    "name": "iconUrl",
+                    "type": "String",
+                    "info": "Url for the icon to display on the left side of the webPanel title.",
+                    "required": true
+                },
+                {
+                    "name": "iconUrl2x",
+                    "type": "String",
+                    "info": "Url for the retina version of the icon to display on the left side of the webPanel title.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteGlobalWebPanel",
+            "description": "Delete a global web panel.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this web panel.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getGlobalWebhook",
+            "description": "Retrieve a global webhook.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this webhook.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createGlobalWebhook",
+            "description": "Create a global webhook.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this webhook.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The label for this webhook.",
+                    "required": false
+                },
+                {
+                    "name": "url",
+                    "type": "String",
+                    "info": "The URL to send the webhook POST to.",
+                    "required": true
+                },
+                {
+                    "name": "pattern",
+                    "type": "String",
+                    "info": "The regular expression pattern to match against messages.",
+                    "required": false
+                },
+                {
+                    "name": "authentication",
+                    "type": "String",
+                    "info": "The authentication method for this webhook. One of: jwt, none.",
+                    "required": false
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this webhook.",
+                    "required": false
+                },
+                {
+                    "name": "event",
+                    "type": "String",
+                    "info": "The event to listen for. One of: room_archived, room_created, room_deleted, room_enter, room_exit, room_file_upload, room_message, room_notification, room_topic_change, room_unarchived.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteGlobalWebhook",
+            "description": "Delete a global webhook.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this webhook.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getGroup",
+            "description": "Get a group's details.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "groupId",
+                    "type": "String",
+                    "info": "The id of the group to view.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getGroupAvatar",
+            "description": "Gets a group avatar.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "groupId",
+                    "type": "String",
+                    "info": "The id of the group.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateGroupAvatar",
+            "description": "Update a group avatar.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "groupId",
+                    "type": "String",
+                    "info": "The id of the group.",
+                    "required": true
+                },
+                {
+                    "name": "avatar",
+                    "type": "String",
+                    "info": "The group avatar as a base64 encoded string.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteGroupAvatar",
+            "description": "Delete group avatar.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "groupId",
+                    "type": "String",
+                    "info": "The id of the group.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getGroupStatistics",
+            "description": "Get a group's details.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "groupId",
+                    "type": "String",
+                    "info": "The id of the group to view.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getIntegrationInstallableData",
+            "description": "Get integration installable data This resource is only useful for integration installations that provide the integration with the installable data URL. Will be deleted after first access.",
+            "args": [
+                {
+                    "name": "token",
+                    "type": "Number",
+                    "info": "The one time use token for accessing installable information.",
+                    "required": true
+                },
+                {
+                    "name": "integrationIdOrKey",
+                    "type": "Number",
+                    "info": "The id or key of the integration.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "invokeIntegrationLink",
+            "description": "Access an integration link.",
+            "args": [
+                {
+                    "name": "token",
+                    "type": "String",
+                    "info": "The allocated token of the link to be accessed.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteIntegrationLink",
+            "description": "Delete a link endpoint by its token.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "token",
+                    "type": "String",
+                    "info": "The allocated token returned when the link was created.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createIntegrationLink",
+            "description": "Create a link target through which an integration can be reached through HipChat. A token will be returned which is used to access the link.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "target",
+                    "type": "String",
+                    "info": "The address of the endpoint which will be invoked when the link is accessed.",
+                    "required": true
+                },
+                {
+                    "name": "ttl",
+                    "type": "Number",
+                    "info": "The lifetime of the link token.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "pushUIChangesToGroup",
+            "description": "Push addon ui update to a group.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "glance",
+                    "type": "Array",
+                    "info": "Glances to update. Example [{\"content\": {\"status\": {\"type\": \"\",\"value\": {\"type\": \"\",\"label\": \"\"}},\"metadata\": \"\",\"label\": {\"type\": \"\",\"value\": \"\"}},\"key\": \"\"}] or [{\"content\": {\"status\": {\"type\": \"\",\"value\": {\"url\":\"\",\"url@2x\":\"\"}},\"metadata\": \"\",\"label\": {\"type\": \"\",\"value\": \"\"}},\"key\": \"\"}].",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "pushUIChangesToRoom",
+            "description": "Push addon ui update to a room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "Number",
+                    "info": "The id or url encoded name of the room to push the ui updates.",
+                    "required": true
+                },
+                {
+                    "name": "glance",
+                    "type": "Array",
+                    "info": "Glances to update. Example [{\"content\": {\"status\": {\"type\": \"\",\"value\": {\"type\": \"\",\"label\": \"\"}},\"metadata\": \"\",\"label\": {\"type\": \"\",\"value\": \"\"}},\"key\": \"\"}] or [{\"content\": {\"status\": {\"type\": \"\",\"value\": {\"url\":\"\",\"url@2x\":\"\"}},\"metadata\": \"\",\"label\": {\"type\": \"\",\"value\": \"\"}},\"key\": \"\"}].",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "pushUIChangesToUserInRoom",
+            "description": "Push addon ui update to a single user in a room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "userIdOrEmail",
+                    "type": "Number",
+                    "info": "The id or email of the user to push the ui updates.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "Number",
+                    "info": "The id or url encoded name of the room to push the ui updates.",
+                    "required": true
+                },
+                {
+                    "name": "glance",
+                    "type": "Array",
+                    "info": "Glances to update. Example [{\"content\": {\"status\": {\"type\": \"\",\"value\": {\"type\": \"\",\"label\": \"\"}},\"metadata\": \"\",\"label\": {\"type\": \"\",\"value\": \"\"}},\"key\": \"\"}] or [{\"content\": {\"status\": {\"type\": \"\",\"value\": {\"url\":\"\",\"url@2x\":\"\"}},\"metadata\": \"\",\"label\": {\"type\": \"\",\"value\": \"\"}},\"key\": \"\"}].",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "pushUIChangesToUser",
+            "description": "Push addon ui update to a user.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "userIdOrName",
+                    "type": "Number",
+                    "info": "The id or name of the user to push the ui updates.",
+                    "required": true
+                },
+                {
+                    "name": "glance",
+                    "type": "Array",
+                    "info": "Glances to update. Example [{\"content\": {\"status\": {\"type\": \"\",\"value\": {\"type\": \"\",\"label\": \"\"}},\"metadata\": \"\",\"label\": {\"type\": \"\",\"value\": \"\"}},\"key\": \"\"}] or [{\"content\": {\"status\": {\"type\": \"\",\"value\": {\"url\":\"\",\"url@2x\":\"\"}},\"metadata\": \"\",\"label\": {\"type\": \"\",\"value\": \"\"}},\"key\": \"\"}].",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "inviteUserToGroup",
+            "description": "Invites a user to join a group.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "title",
+                    "type": "String",
+                    "info": "The invited user's title.",
+                    "required": false
+                },
+                {
+                    "name": "email",
+                    "type": "String",
+                    "info": "Email to sent the invite to.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The invited user's full name.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAutoJoinRooms",
+            "description": "Get the list of rooms a user joins when they log in.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrEmail",
+                    "type": "String",
+                    "info": "The id, email address, or mention name (beginning with an @) of the user to retrieve rooms.",
+                    "required": true
+                },
+                {
+                    "name": "startIndex",
+                    "type": "Number",
+                    "info": "The start index for the result set.",
+                    "required": false
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of results. In range: 0-1000.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllUsers",
+            "description": "List all users in the group.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "startIndex",
+                    "type": "Number",
+                    "info": "The start index for the result set.",
+                    "required": false
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of results. In range: 0-1000.",
+                    "required": false
+                },
+                {
+                    "name": "includeGuests",
+                    "type": "Boolean",
+                    "info": "Include active guest users in response.",
+                    "required": false
+                },
+                {
+                    "name": "includeDeleted",
+                    "type": "Boolean",
+                    "info": "Include deleted users in response.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createUser",
+            "description": "Creates a new user.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "User's full name.",
+                    "required": true
+                },
+                {
+                    "name": "roles",
+                    "type": "String",
+                    "info": "Comma-separated list of roles for the user.",
+                    "required": false
+                },
+                {
+                    "name": "title",
+                    "type": "String",
+                    "info": "User's title.",
+                    "required": false
+                },
+                {
+                    "name": "mentionName",
+                    "type": "String",
+                    "info": "User's @mention name.",
+                    "required": false
+                },
+                {
+                    "name": "isGroupAdmin",
+                    "type": "Boolean",
+                    "info": "Whether or not this user is an admin.",
+                    "required": false
+                },
+                {
+                    "name": "timezone",
+                    "type": "String",
+                    "info": "User's timezone Must be a supported timezone.",
+                    "required": false
+                },
+                {
+                    "name": "password",
+                    "type": "String",
+                    "info": "User's password.",
+                    "required": false
+                },
+                {
+                    "name": "email",
+                    "type": "String",
+                    "info": "User's email.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getUser",
+            "description": "Get a user's details.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrEmail",
+                    "type": "String",
+                    "info": "The id, email address, or mention name (beginning with an @) of the user to view.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateUser",
+            "description": "Update a user. A guest cannot be updated.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrEmail",
+                    "type": "String",
+                    "info": "The id email address or mention name (beginning with an @) of the user to update.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "User's full name.",
+                    "required": true
+                },
+                {
+                    "name": "roles",
+                    "type": "String",
+                    "info": "Comma-separated list of roles for the user.",
+                    "required": false
+                },
+                {
+                    "name": "title",
+                    "type": "String",
+                    "info": "User's title.",
+                    "required": false
+                },
+                {
+                    "name": "presenceStatus",
+                    "type": "String",
+                    "info": "Presence status message of the user.",
+                    "required": false
+                },
+                {
+                    "name": "presenceShow",
+                    "type": "String",
+                    "info": "Presence status to show for the user.",
+                    "required": true
+                },
+                {
+                    "name": "mentionName",
+                    "type": "String",
+                    "info": "User's mention name.",
+                    "required": true
+                },
+                {
+                    "name": "isGroupAdmin",
+                    "type": "Boolean",
+                    "info": "Whether or not this user is an admin.",
+                    "required": false
+                },
+                {
+                    "name": "timezone",
+                    "type": "String",
+                    "info": "User's timezone.",
+                    "required": false
+                },
+                {
+                    "name": "password",
+                    "type": "String",
+                    "info": "User's password.",
+                    "required": false
+                },
+                {
+                    "name": "email",
+                    "type": "String",
+                    "info": "User's email.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteUser",
+            "description": "Delete a user.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrEmail",
+                    "type": "String",
+                    "info": "The id, email address, or mention name (beginning with an @) of the user to delete.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getPrivatechatMessage",
+            "description": "Fetch one specific message by id.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "messageId",
+                    "type": "String",
+                    "info": "The id of the message to retrieve.",
+                    "required": true
+                },
+                {
+                    "name": "idOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "timezone",
+                    "type": "String",
+                    "info": "Your timezone. Must be a supported timezone.",
+                    "required": false
+                },
+                {
+                    "name": "includeDeleted",
+                    "type": "Boolean",
+                    "info": "Include records about deleted messages into results.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getPrivatechatHistory",
+            "description": "Fetch chat history for the 1:1 chat with the user identified by id or email.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrEmail",
+                    "type": "String",
+                    "info": "The id or email of the user.",
+                    "required": true
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of messages to return. In range: 0-1000.",
+                    "required": false
+                },
+                {
+                    "name": "reverse",
+                    "type": "Boolean",
+                    "info": "Reverse the output such that the oldest message is first.",
+                    "required": false
+                },
+                {
+                    "name": "startIndex",
+                    "type": "Number",
+                    "info": "The offset for the messages to return.",
+                    "required": false
+                },
+                {
+                    "name": "includeDeleted",
+                    "type": "Boolean",
+                    "info": "Include records about deleted messages into results.",
+                    "required": false
+                },
+                {
+                    "name": "date",
+                    "type": "String",
+                    "info": "Either the latest date to fetch history for in ISO-8601 format, or 'recent' to fetch the latest 75 messages.",
+                    "required": false
+                },
+                {
+                    "name": "timezone",
+                    "type": "String",
+                    "info": "Your timezone. Must be a supported timezone name, please see wikipedia TZ database page.",
+                    "required": false
+                },
+                {
+                    "name": "endDate",
+                    "type": "String",
+                    "info": "Either the earliest date to fetch history for in ISO-8601 format, or 'null' to disable this filter.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRecentPrivatechatHistory",
+            "description": "Fetch latest chat history for the 1:1 chat with the user identified by id or email.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrEmail",
+                    "type": "String",
+                    "info": "The id or email of the user.",
+                    "required": true
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of messages to return. In range: 0-1000.",
+                    "required": false
+                },
+                {
+                    "name": "timezone",
+                    "type": "String",
+                    "info": "Your timezone. Must be a supported timezone.",
+                    "required": false
+                },
+                {
+                    "name": "includeDeleted",
+                    "type": "Boolean",
+                    "info": "Include records about deleted messages into results.",
+                    "required": false
+                },
+                {
+                    "name": "notBefore",
+                    "type": "String",
+                    "info": "The id of the message that is oldest in the set of messages to be returned.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "sendPrivateMessage",
+            "description": "Sends a user a private message. This API can only be called using a user token.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrEmail",
+                    "type": "String",
+                    "info": "The id, email address, or mention name (beginning with an @) of the user to send a message to.",
+                    "required": true
+                },
+                {
+                    "name": "message",
+                    "type": "String",
+                    "info": "The message body.",
+                    "required": true
+                },
+                {
+                    "name": "notify",
+                    "type": "String",
+                    "info": "Whether this message should trigger a user notification.",
+                    "required": false
+                },
+                {
+                    "name": "messageFormat",
+                    "type": "String",
+                    "info": "Determines how the message is treated by our server and rendered inside HipChat applications. Valid values html, text.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getPhoto",
+            "description": "Gets a user photo.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "size",
+                    "type": "String",
+                    "info": "The size to retrieve. One of: small, big.",
+                    "required": true
+                },
+                {
+                    "name": "idOrEmail",
+                    "type": "String",
+                    "info": "The id, email address, or mention name (beginning with an @) of the user.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updatePhoto",
+            "description": "Update a user photo. A guest cannot be updated.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrEmail",
+                    "type": "String",
+                    "info": "The id, email address, or mention name (beginning with an @) of the user to update.",
+                    "required": true
+                },
+                {
+                    "name": "photo",
+                    "type": "String",
+                    "info": "The user photo as a base64 encoded string.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deletePhoto",
+            "description": "Delete a user photo. A guest cannot be updated.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrEmail",
+                    "type": "String",
+                    "info": "The id, email address, or mention name (beginning with an @) of the user to update.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "shareFileWithUser",
+            "description": "Share a file with another user.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrName",
+                    "type": "String",
+                    "info": "The id or email of user to send the file to.",
+                    "required": true
+                },
+                {
+                    "name": "file",
+                    "type": "File",
+                    "info": "File to share.",
+                    "required": true
+                },
+                {
+                    "name": "message",
+                    "type": "String",
+                    "info": "The message.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "shareLinkWithUser",
+            "description": "Share a link with another user.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "idOrName",
+                    "type": "String",
+                    "info": "The id or email of user to send the link to.",
+                    "required": true
+                },
+                {
+                    "name": "message",
+                    "type": "String",
+                    "info": "The message.",
+                    "required": false
+                },
+                {
+                    "name": "link",
+                    "type": "String",
+                    "info": "An absolute link to share.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoom",
+            "description": "Get room details.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "updateRoom",
+            "description": "Updates a room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "Name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "privacy",
+                    "type": "String",
+                    "info": "Whether the room is available for access by other users or not. One of: public, private.",
+                    "required": true
+                },
+                {
+                    "name": "isArchived",
+                    "type": "Boolean",
+                    "info": "Whether the room should be archived or not.",
+                    "required": true
+                },
+                {
+                    "name": "isGuestAccessible",
+                    "type": "Boolean",
+                    "info": "Whether or not to enable guest access for this room.",
+                    "required": true
+                },
+                {
+                    "name": "topic",
+                    "type": "String",
+                    "info": "The new topic for the room.",
+                    "required": true
+                },
+                {
+                    "name": "ownerId",
+                    "type": "String",
+                    "info": "User ID or email address of the room's owner.",
+                    "required": true
+                },
+                {
+                    "name": "delegateAdminVisibility",
+                    "type": "Boolean",
+                    "info": "Whether the room is visible to delegate admins.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteRoom",
+            "description": "Deletes a room and kicks the current participants.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllRooms",
+            "description": "List non archived rooms for this group.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "startIndex",
+                    "type": "Number",
+                    "info": "The start index for the result set.",
+                    "required": false
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of results. In range: 0-1000.",
+                    "required": false
+                },
+                {
+                    "name": "includePrivate",
+                    "type": "Boolean",
+                    "info": "Filter out private rooms.",
+                    "required": false
+                },
+                {
+                    "name": "includeArchived",
+                    "type": "Boolean",
+                    "info": "Filter rooms.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createRoom",
+            "description": "Creates a new room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "Name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "privacy",
+                    "type": "String",
+                    "info": "Whether the room is available for access by other users or not. One of: public, private.",
+                    "required": false
+                },
+                {
+                    "name": "delegateAdminVisibility",
+                    "type": "Boolean",
+                    "info": "Whether the room is visible to delegate admins.",
+                    "required": false
+                },
+                {
+                    "name": "topic",
+                    "type": "String",
+                    "info": "The topic for the new room.",
+                    "required": false
+                },
+                {
+                    "name": "ownerUserId",
+                    "type": "String",
+                    "info": "The id, email address, or mention name (beginning with an @) of the room's owner.",
+                    "required": false
+                },
+                {
+                    "name": "guestAccess",
+                    "type": "Boolean",
+                    "info": "Whether or not to enable guest access for this room.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomAction",
+            "description": "Retrieve an action.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this action.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createRoomAction",
+            "description": "Create an action.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this action.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                },
+                {
+                    "name": "targetOptions",
+                    "type": "JSON",
+                    "info": "An object containing options which vary based on the type of target.",
+                    "required": false
+                },
+                {
+                    "name": "targetKey",
+                    "type": "String",
+                    "info": "The key of a dialog glance or web panel that should be opened in response to this action.",
+                    "required": true
+                },
+                {
+                    "name": "weight",
+                    "type": "Number",
+                    "info": "Determines the order in which the action appears in menu or list.",
+                    "required": false
+                },
+                {
+                    "name": "location",
+                    "type": "String",
+                    "info": "The location of this action. One of: hipchat, message, action, hipchat, input, action.",
+                    "required": true
+                },
+                {
+                    "name": "conditions",
+                    "type": "Array",
+                    "info": "Conditions determine whether this action is shown. Example [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\"}],\"type\": \"\"}],\"type\": \"\"}].",
+                    "required": false
+                },
+                {
+                    "name": "nameI18n",
+                    "type": "String",
+                    "info": "Localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "nameValue",
+                    "type": "String",
+                    "info": "The display name of the action.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteRoomAction",
+            "description": "Delete an action.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this action.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomDialog",
+            "description": "Retrieve a dialog.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this dialog.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createRoomDialog",
+            "description": "Create a dialog.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this dialog.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                },
+                {
+                    "name": "url",
+                    "type": "String",
+                    "info": "The url where the dialog content is hosted.",
+                    "required": true
+                },
+                {
+                    "name": "authentication",
+                    "type": "String",
+                    "info": "The authentication method for this dialog Valid values jwt none.",
+                    "required": false
+                },
+                {
+                    "name": "optionsStyle",
+                    "type": "String",
+                    "info": "The dialog style. One of: normal, warning.",
+                    "required": false
+                },
+                {
+                    "name": "optionsHintI18n",
+                    "type": "String",
+                    "info": "Localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "optionsHintValue",
+                    "type": "String",
+                    "info": "The dialog hint, default text.",
+                    "required": true
+                },
+                {
+                    "name": "optionsFilterPlaceholderI18n",
+                    "type": "String",
+                    "info": "Filter box placeholder text localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "optionsFilterPlaceholderValue",
+                    "type": "String",
+                    "info": "filter box placeholder default text.",
+                    "required": true
+                },
+                {
+                    "name": "primaryAction",
+                    "type": "JSON",
+                    "info": "The primary action of the dialog rendered as a primary button.",
+                    "required": false
+                },
+                {
+                    "name": "optionsPrimaryActionEnabled",
+                    "type": "Boolean",
+                    "info": "Whether button of primary action is disabled or enabled.",
+                    "required": false
+                },
+                {
+                    "name": "optionsPrimaryActionNameI18n",
+                    "type": "String",
+                    "info": "Primary action button localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "optionsPrimaryActionNameValue",
+                    "type": "String",
+                    "info": "Primary action button default text.",
+                    "required": true
+                },
+                {
+                    "name": "optionsPrimaryActionKey",
+                    "type": "String",
+                    "info": "A key that can be used to register an event listener.",
+                    "required": false
+                },
+                {
+                    "name": "optionsSecondaryActionsEnabled",
+                    "type": "Boolean",
+                    "info": "Whether button of secondary actions is disabled or enabled default true.",
+                    "required": false
+                },
+                {
+                    "name": "optionsSecondaryActionsNameI18n",
+                    "type": "String",
+                    "info": "Secondary actions name localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "optionsSecondaryActionsNameValue",
+                    "type": "String",
+                    "info": "Secondary actions name default text.",
+                    "required": true
+                },
+                {
+                    "name": "optionsSecondaryActionsKey",
+                    "type": "String",
+                    "info": "Secondary actions key that can be used to register an event listener.",
+                    "required": false
+                },
+                {
+                    "name": "optionsSizeWidth",
+                    "type": "String",
+                    "info": "The width of the dialog either in pixels px or as a percentage.",
+                    "required": true
+                },
+                {
+                    "name": "optionsSizeHeight",
+                    "type": "String",
+                    "info": "The height of the dialog either in pixels px or as a percentage.",
+                    "required": true
+                },
+                {
+                    "name": "titleI18n",
+                    "type": "String",
+                    "info": "The dialog title localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "titleValue",
+                    "type": "String",
+                    "info": "The dialog title default text.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteRoomDialog",
+            "description": "Delete a dialog.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this dialog.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomExternalPage",
+            "description": "Retrieve an external page.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this external page.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createRoomExternalPage",
+            "description": "Create an external page.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this external page.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                },
+                {
+                    "name": "url",
+                    "type": "String",
+                    "info": "The URL of the external page.",
+                    "required": true
+                },
+                {
+                    "name": "nameValue",
+                    "type": "String",
+                    "info": "The display name of the external page.",
+                    "required": true
+                },
+                {
+                    "name": "nameI18n",
+                    "type": "String",
+                    "info": "The optional localization key used to look up the localized value.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteRoomExternalPage",
+            "description": "Delete an external page.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this external page.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomGlance",
+            "description": "Retrieve a glance.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this glance.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createRoomGlance",
+            "description": "Create a glance. Example {\"target\": {\"options\": {},\"key\": \"\"},\"weight\": 111,\"key\": \"\",\"queryUrl\": \"\",\"icon\": {\"url\": \"\",\"url@2x\": \"\"},\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\"}],\"type\": \"\"}],\"type\": \"\"}],\"name\": {\"i18n\": \"\",\"value\": \"\"}}.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this glance.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                },
+                {
+                    "name": "targetOptions",
+                    "type": "JSON",
+                    "info": "Options which vary based on the type of target.",
+                    "required": false
+                },
+                {
+                    "name": "targetKey",
+                    "type": "String",
+                    "info": "The key of a dialog glance or web panel that should be opened in response to this action.",
+                    "required": true
+                },
+                {
+                    "name": "weight",
+                    "type": "Number",
+                    "info": "Determines the order in which glances appear. Glances are displayed top to bottom in order of ascending weight.",
+                    "required": false
+                },
+                {
+                    "name": "queryUrl",
+                    "type": "String",
+                    "info": "The URL of the resource providing the glance content.",
+                    "required": false
+                },
+                {
+                    "name": "iconUrl",
+                    "type": "String",
+                    "info": "Url for the icon to display on the left side of the glance.",
+                    "required": true
+                },
+                {
+                    "name": "iconUrl2x",
+                    "type": "String",
+                    "info": "Url for the retina version of the icon to display on the left side of the glance.",
+                    "required": true
+                },
+                {
+                    "name": "conditions",
+                    "type": "Array",
+                    "info": "Conditions determine whether this glance is shown. Example [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\"}],\"type\": \"\"}],\"type\": \"\"}].",
+                    "required": false
+                },
+                {
+                    "name": "nameI18n",
+                    "type": "String",
+                    "info": "Display name of the glance localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "nameValue",
+                    "type": "String",
+                    "info": "The display name of the glance default text.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteRoomGlance",
+            "description": "Delete a glance.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this glance.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomWebPanel",
+            "description": "Retrieve a web panel.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this web panel.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createRoomWebPanel",
+            "description": "Create a web panel. Example {\"name\": {\"i18n\": \"\",\"value\": \"\"},\"weight\": 111,\"url\": \"\",\"authentication\": \"\",\"location\": \"\",\"key\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": {\"invert\": false,\"params\": {},\"condition\": \"\"},\"type\": \"\"}],\"type\": \"\"}],\"icon\": {\"url\": \"\",\"url@2x\": \"\"}}.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this web panel.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                },
+                {
+                    "name": "nameI18n",
+                    "type": "String",
+                    "info": "Display name of the webPanel localization key used to look up the localized value.",
+                    "required": false
+                },
+                {
+                    "name": "nameValue",
+                    "type": "String",
+                    "info": "Display name of the webPanel default text.",
+                    "required": true
+                },
+                {
+                    "name": "weight",
+                    "type": "Number",
+                    "info": "Determines the order in which webPanel appear. Web panels are displayed top to bottom or left to right in order of ascending weight.",
+                    "required": false
+                },
+                {
+                    "name": "url",
+                    "type": "String",
+                    "info": "The URL of the resource providing the view content.",
+                    "required": true
+                },
+                {
+                    "name": "authentication",
+                    "type": "String",
+                    "info": "The authentication method for this webpanel. One of: jwt, none.",
+                    "required": false
+                },
+                {
+                    "name": "location",
+                    "type": "String",
+                    "info": "The location of this webPanel. One of: hipchat, sidebar, right.",
+                    "required": true
+                },
+                {
+                    "name": "conditions",
+                    "type": "Array",
+                    "info": "Conditions determine whether this web panel is shown. Example [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": [{\"invert\": false,\"params\": {},\"condition\": \"\",\"conditions\": {\"invert\": false,\"params\": {},\"condition\": \"\"},\"type\": \"\"}],\"type\": \"\"}].",
+                    "required": false
+                },
+                {
+                    "name": "iconUrl",
+                    "type": "String",
+                    "info": "Url for the icon to display on the left side of the webPanel title.",
+                    "required": true
+                },
+                {
+                    "name": "iconUrl2x",
+                    "type": "String",
+                    "info": "Url for the retina version of the icon to display on the left side of the webPanel title.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteRoomWebPanel",
+            "description": "Delete a web panel.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this web panel.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomWebhook",
+            "description": "Retrieve a webhook.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this webhook.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "createRoomWebhook",
+            "description": "Create a webhook.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this webhook.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "String",
+                    "info": "The label for this webhook.",
+                    "required": false
+                },
+                {
+                    "name": "url",
+                    "type": "String",
+                    "info": "The URL to send the webhook POST to.",
+                    "required": true
+                },
+                {
+                    "name": "pattern",
+                    "type": "String",
+                    "info": "The regular expression pattern to match against messages Only applicable for message events.",
+                    "required": false
+                },
+                {
+                    "name": "authentication",
+                    "type": "String",
+                    "info": "The authentication method for this webhook. One of: jwt, none.",
+                    "required": false
+                },
+                {
+                    "name": "event",
+                    "type": "String",
+                    "info": "The event to listen for. One of: room_archived, room_created, room_deleted, room_enter, room_exit, room_file_upload, room_message, room_notification, room_topic_change, room_unarchived.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteRoomWebhook",
+            "description": "Delete a webhook.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "key",
+                    "type": "String",
+                    "info": "Unique key to identify this webhook.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomMessage",
+            "description": "Fetch one specific message by id.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "messageId",
+                    "type": "String",
+                    "info": "The id of the message to retrieve.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "timezone",
+                    "type": "String",
+                    "info": "Your timezone. Must be a supported timezone.",
+                    "required": false
+                },
+                {
+                    "name": "includeDeleted",
+                    "type": "Boolean",
+                    "info": "Include records about deleted messages into results.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomHistory",
+            "description": "Fetch chat history for this room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of messages to return. In range: 0-1000.",
+                    "required": false
+                },
+                {
+                    "name": "reverse",
+                    "type": "Boolean",
+                    "info": "Reverse the output such that the oldest message is first.",
+                    "required": false
+                },
+                {
+                    "name": "startIndex",
+                    "type": "Number",
+                    "info": "The offset for the messages to return.",
+                    "required": false
+                },
+                {
+                    "name": "includeDeleted",
+                    "type": "Boolean",
+                    "info": "Include records about deleted messages into results.",
+                    "required": false
+                },
+                {
+                    "name": "date",
+                    "type": "String",
+                    "info": "Either the latest date to fetch history for in ISO-8601 format.",
+                    "required": false
+                },
+                {
+                    "name": "timezone",
+                    "type": "String",
+                    "info": "Your timezone.",
+                    "required": false
+                },
+                {
+                    "name": "endDate",
+                    "type": "String",
+                    "info": "Either the earliest date to fetch history for the ISO-8601 format.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRecentRoomHistory",
+            "description": "Fetch latest chat history for this room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of messages to return. In range: 0-1000.",
+                    "required": false
+                },
+                {
+                    "name": "timezone",
+                    "type": "String",
+                    "info": "Your timezone.",
+                    "required": false
+                },
+                {
+                    "name": "includeDeleted",
+                    "type": "Boolean",
+                    "info": "Include records about deleted messages into results.",
+                    "required": false
+                },
+                {
+                    "name": "notBefore",
+                    "type": "String",
+                    "info": "The id of the message that is oldest in the set of messages to be returned.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "inviteUserToRoom",
+            "description": "Invite a user to a public room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "userIdOrEmail",
+                    "type": "String",
+                    "info": "The id, email address, or mention name (beginning with an @) of the user to invite.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "reason",
+                    "type": "String",
+                    "info": "The reason to give to the invited user.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "addMemberToRoom",
+            "description": "Adds a member to a private room and sends member's unavailable presence to all room members asynchronously.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "userIdOrEmail",
+                    "type": "Number",
+                    "info": "The id, email address, or mention name (beginning with an @) of the user.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "roomRoles",
+                    "type": "Array",
+                    "info": "The list of roles for the user within the room.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "removeMemberFromRoom",
+            "description": "Removes a member from a private room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "userIdOrEmail",
+                    "type": "Number",
+                    "info": "The id, email address, or mention name (beginning with an @) of the user.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomAllMembers",
+            "description": "Gets all members for this private room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "startIndex",
+                    "type": "Number",
+                    "info": "The start index for the result set.",
+                    "required": false
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of results. In range: 0-1000.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "sendMessageToRoom",
+            "description": "Send a message to a room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "message",
+                    "type": "String",
+                    "info": "The message.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "sendRoomNotification",
+            "description": "Send a message to a room. Example {\"from\": \"\",\"message_format\": \"\",\"color\": \"\",\"attach_to\": \"\",\"notify\": \"\",\"message\": \"\",\"card\": {\"style\": \"\",\"description\": {\"value\": \"\",\"format\": \"\"},\"format\": \"\",\"url\": \"\",\"title\": \"\",\"thumbnail\": {\"url\": \"\",\"width\": 300,\"url@2x\": \"\",\"height\": 300},\"activity\": {\"html\": \"\",\"icon\": {\"url\": \"\",\"url@2x\": \"\"}},\"attributes\": [{\"value\": {\"url\": \"\",\"style\": \"\",\"label\": \"\",\"icon\": {\"url\": \"\",\"url@2x\": \"\"}},\"label\": \"\"}],\"id\": \"\",\"icon\": {\"url\": \"\",\"url@2x\": \"\"}}}.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "from",
+                    "type": "String",
+                    "info": "A label to be shown in addition to the sender's name.",
+                    "required": false
+                },
+                {
+                    "name": "messageFormat",
+                    "type": "String",
+                    "info": "Determines how the message is treated by our server and rendered inside HipChat applications.",
+                    "required": false
+                },
+                {
+                    "name": "color",
+                    "type": "String",
+                    "info": "Background color for message. One of: yellow, green, red, purple, gray, random.",
+                    "required": false
+                },
+                {
+                    "name": "attachTo",
+                    "type": "String",
+                    "info": "The message id to to attach this notification to, for example if this notification is in response to a particular message.",
+                    "required": false
+                },
+                {
+                    "name": "notify",
+                    "type": "String",
+                    "info": "Whether this message should trigger a user notification.",
+                    "required": false
+                },
+                {
+                    "name": "message",
+                    "type": "String",
+                    "info": "The message body.",
+                    "required": true
+                },
+                {
+                    "name": "cardStyle",
+                    "type": "String",
+                    "info": "Type of the card. One of: file, image, application, link, media.",
+                    "required": false
+                },
+                {
+                    "name": "cardDescriptionValue",
+                    "type": "String",
+                    "info": "Card description in the specific format.",
+                    "required": false
+                },
+                {
+                    "name": "cardDescriptionFormat",
+                    "type": "String",
+                    "info": "Card description format that can be html or text.",
+                    "required": false
+                },
+                {
+                    "name": "cardFormat",
+                    "type": "String",
+                    "info": "Application cards can be compact 1 to 2 lines or medium 1 to 5 lines.",
+                    "required": false
+                },
+                {
+                    "name": "cardUrl",
+                    "type": "String",
+                    "info": "The url where the card will open.",
+                    "required": false
+                },
+                {
+                    "name": "cardTitle",
+                    "type": "String",
+                    "info": "Card title of the card.",
+                    "required": false
+                },
+                {
+                    "name": "cardThumbnailUrl",
+                    "type": "String",
+                    "info": "The thumbnail url.",
+                    "required": false
+                },
+                {
+                    "name": "cardThumbnailWidth",
+                    "type": "Number",
+                    "info": "The original width of the image.",
+                    "required": false
+                },
+                {
+                    "name": "cardThumbnailUrl2x",
+                    "type": "String",
+                    "info": "The thumbnail url in retina.",
+                    "required": false
+                },
+                {
+                    "name": "cardThumbnailHeight",
+                    "type": "Number",
+                    "info": "The original height of the image.",
+                    "required": false
+                },
+                {
+                    "name": "cardActivityHtml",
+                    "type": "String",
+                    "info": "Html for the activity to show in one line a summary of the action that happened.",
+                    "required": false
+                },
+                {
+                    "name": "cardActivityIconUrl",
+                    "type": "String",
+                    "info": "The url where the icon is.",
+                    "required": false
+                },
+                {
+                    "name": "cardActivityIconUrl2x",
+                    "type": "String",
+                    "info": "The url for the icon in retina.",
+                    "required": false
+                },
+                {
+                    "name": "cardAttributes",
+                    "type": "Array",
+                    "info": "List of attributes to show below the card. Example [{\"value\": {\"url\": \"\",\"style\": \"\",\"label\": \"\",\"icon\": {\"url\": \"\",\"url@2x\": \"\"}},\"label\": \"\"}].",
+                    "required": false
+                },
+                {
+                    "name": "cardId",
+                    "type": "String",
+                    "info": "An id that will help HipChat recognise the same card when it is sent multiple times.",
+                    "required": false
+                },
+                {
+                    "name": "cardIconUrl",
+                    "type": "String",
+                    "info": "The url where the card icon is.",
+                    "required": false
+                },
+                {
+                    "name": "cardIconUrl2x",
+                    "type": "String",
+                    "info": "The url for the card icon in retina.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomtAllParticipants",
+            "description": "Gets all participants in this room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "startIndex",
+                    "type": "Number",
+                    "info": "The start index for the result set.",
+                    "required": false
+                },
+                {
+                    "name": "includeOffline",
+                    "type": "String",
+                    "info": "Filter users by status boolean.",
+                    "required": false
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of results. In range: 0-1000.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "replyToMessageInRoom",
+            "description": "Reply to a message in a room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "parentMessageId",
+                    "type": "String",
+                    "info": "The id of the message you are replying to.",
+                    "required": true
+                },
+                {
+                    "name": "message",
+                    "type": "String",
+                    "info": "The message.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "shareFileWithRoom",
+            "description": "Share a file with the room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "file",
+                    "type": "File",
+                    "info": "File to share.",
+                    "required": true
+                },
+                {
+                    "name": "message",
+                    "type": "String",
+                    "info": "The message.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "shareLinkWithRoom",
+            "description": "Share a link with the room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "message",
+                    "type": "String",
+                    "info": "The message.",
+                    "required": false
+                },
+                {
+                    "name": "link",
+                    "type": "String",
+                    "info": "An absolute link to share.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomStatistics",
+            "description": "Fetch statistics for this room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "setRoomTopic",
+            "description": "Set a room's topic. Useful for displaying statistics, important links, server status, you name it.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "topic",
+                    "type": "String",
+                    "info": "The topic body.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getRoomAllWebhooks",
+            "description": "Gets all webhooks for this room.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "roomIdOrName",
+                    "type": "String",
+                    "info": "The id or url encoded name of the room.",
+                    "required": true
+                },
+                {
+                    "name": "startIndex",
+                    "type": "Number",
+                    "info": "The start index for the result set.",
+                    "required": false
+                },
+                {
+                    "name": "maxResults",
+                    "type": "Number",
+                    "info": "The maximum number of results. In range: 0-1000.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getSession",
+            "description": "Gets the OAuth session via its associated access_token.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "The OAuth accessToken.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "deleteSession",
+            "description": "Deletes the OAuth session via its associated access_token Authentication required Accessible by group clients room clients users.",
+            "args": [
+                {
+                    "name": "authToken",
+                    "type": "String",
+                    "info": "API access token.",
+                    "required": true
+                },
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "The OAuth accessToken.",
+                    "required": true
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAccessToken",
+            "description": "Gets an OAuth token for requested grant type.",
+            "args": [
+                {
+                    "name": "code",
+                    "type": "String",
+                    "info": "The authorization code to exchange for an access token.",
+                    "required": true
+                },
+                {
+                    "name": "userId",
+                    "type": "String",
+                    "info": "The id of the user the token is acting on behalf of.",
+                    "required": false
+                },
+                {
+                    "name": "clientName",
+                    "type": "String",
+                    "info": "The name of the public oauth client retrieving a token for.",
+                    "required": false
+                },
+                {
+                    "name": "redirectUri",
+                    "type": "String",
+                    "info": "The URL that was used to generate an authorization code, and it must match that value.",
+                    "required": false
+                },
+                {
+                    "name": "scope",
+                    "type": "String",
+                    "info": "A space-delimited list of scopes that is requested.",
+                    "required": false
+                },
+                {
+                    "name": "groupId",
+                    "type": "String",
+                    "info": "The name of the group to which the related user belongs.",
+                    "required": false
+                }
+            ],
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        }
+    ]
+}
