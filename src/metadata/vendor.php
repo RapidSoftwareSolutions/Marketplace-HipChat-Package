@@ -311,7 +311,7 @@ return array (
                     'name' => 'optionsSecondaryActions',
                     'type' => 'Array',
                     'info' => 'The secondary actions of the dialog rendered as link buttons. Example [{"enabled": false,"name": {"i18n": "","value": ""},"key": ""}].',
-                    'required' => true,
+                    'required' => false,
                 ),
                 array (
                     'name' => 'optionsSizeWidth',
@@ -409,12 +409,6 @@ return array (
                     'info' => 'The default text.',
                     'required' => true,
                 ),
-                array (
-                    'name' => 'key',
-                    'type' => 'String',
-                    'info' => 'Unique key to identify this external page.',
-                    'required' => true,
-                ),
             ),
         ),
         array (
@@ -455,7 +449,7 @@ return array (
         ),
         array (
             'name' => 'createGlobalGlance',
-            'description' => 'Create a global glance. Example {"target": {"options": {},"key": ""},"weight": "","key": "","queryUrl": "","icon": {"url": "","url@2x": ""},"conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}],"name": {"i18n": "","value": ""}}.',
+            'description' => 'Create a global glance.',
             'args' => array (
                 array (
                     'name' => 'authToken',
@@ -563,7 +557,7 @@ return array (
         ),
         array (
             'name' => 'createGlobalWebPanel',
-            'description' => 'Create a global web panel. Example {"name": {"i18n": "","value": ""},"weight": 111,"url": "","authentication": "","location": "","key": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}],"icon": {"url": "","url@2x": ""}}.',
+            'description' => 'Create a global web panel.',
             'args' => array (
                 array (
                     'name' => 'authToken',
@@ -3493,7 +3487,6 @@ return array (
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/addon/ui',
             'method' => 'POST',
-            'custom' => true,
         ),
         'pushUIChangesToRoom' => array (
             'dictionary' => array (
@@ -3503,7 +3496,6 @@ return array (
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/addon/ui/room/{{roomIdOrName}}',
             'method' => 'POST',
-            'custom' => true,
         ),
         'pushUIChangesToUserInRoom' => array (
             'dictionary' => array (
@@ -3514,7 +3506,6 @@ return array (
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/addon/ui/room/{{roomIdOrName}}/user/{{userIdOrEmail}}',
             'method' => 'POST',
-            'custom' => true,
         ),
         'pushUIChangesToUser' => array (
             'dictionary' => array (
@@ -3524,7 +3515,6 @@ return array (
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/addon/ui/user/{{userIdOrName}}',
             'method' => 'POST',
-            'custom' => true,
         ),
         'inviteUserToGroup' => array (
             'dictionary' => array (
@@ -3571,7 +3561,6 @@ return array (
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/user',
             'method' => 'POST',
-            'custom' => true,
         ),
         'getUser' => array (
             'dictionary' => array (
