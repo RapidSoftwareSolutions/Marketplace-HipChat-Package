@@ -131,7 +131,7 @@ return array (
         ),
         array (
             'name' => 'createGlobalAction',
-            'description' => 'Create a global action. Example: {"target": {"options": {},"key": ""},"weight": "","location": "","key": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}],"name": {"i18n": "","value": ""}}.',
+            'description' => 'Create a global action.',
             'args' => array (
                 array (
                     'name' => 'authToken',
@@ -176,13 +176,13 @@ return array (
                     'required' => true,
                 ),
                 array (
-                    'name' => 'i18n',
+                    'name' => 'nameI18n',
                     'type' => 'String',
                     'info' => 'The optional localization key used to look up the localized value.',
                     'required' => false,
                 ),
                 array (
-                    'name' => 'value',
+                    'name' => 'nameValue',
                     'type' => 'String',
                     'info' => 'The default text.',
                     'required' => true,
@@ -326,13 +326,13 @@ return array (
                     'required' => true,
                 ),
                 array (
-                    'name' => 'optionsTitleI18n',
+                    'name' => 'titleI18n',
                     'type' => 'String',
                     'info' => 'The optional localization key used to look up the localized value.',
                     'required' => false,
                 ),
                 array (
-                    'name' => 'optionsTitleValue',
+                    'name' => 'titleValue',
                     'type' => 'String',
                     'info' => 'The default text.',
                     'required' => true,
@@ -3171,48 +3171,6 @@ return array (
                 ),
             ),
         ),
-        array (
-            'name' => 'getAccessToken',
-            'description' => 'Gets an OAuth token for requested grant type.',
-            'args' => array (
-                array (
-                    'name' => 'code',
-                    'type' => 'String',
-                    'info' => 'The authorization code to exchange for an access token.',
-                    'required' => true,
-                ),
-                array (
-                    'name' => 'userId',
-                    'type' => 'String',
-                    'info' => 'The id of the user the token is acting on behalf of.',
-                    'required' => false,
-                ),
-                array (
-                    'name' => 'clientName',
-                    'type' => 'String',
-                    'info' => 'The name of the public oauth client retrieving a token for.',
-                    'required' => false,
-                ),
-                array (
-                    'name' => 'redirectUri',
-                    'type' => 'String',
-                    'info' => 'The URL that was used to generate an authorization code, and it must match that value.',
-                    'required' => false,
-                ),
-                array (
-                    'name' => 'scope',
-                    'type' => 'String',
-                    'info' => 'A space-delimited list of scopes that is requested.',
-                    'required' => false,
-                ),
-                array (
-                    'name' => 'groupId',
-                    'type' => 'String',
-                    'info' => 'The name of the group to which the related user belongs.',
-                    'required' => false,
-                ),
-            ),
-        ),
     ),
     'custom' => array (
         'getAccessToken' => array (
@@ -3274,8 +3232,8 @@ return array (
                 'weight' => 'weight',
                 'location' => 'location',
                 'conditions' => 'conditions',
-                'i18n' => 'i18n',
-                'value' => 'value',
+                'nameI18n' => 'nameI18n',
+                'nameValue' => 'nameValue',
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/extension/action/{{key}}',
             'method' => 'PUT',
@@ -3315,8 +3273,8 @@ return array (
                 'optionsSecondaryActions' => 'optionsSecondaryActions',
                 'optionsSizeWidth' => 'optionsSizeWidth',
                 'optionsSizeHeight' => 'optionsSizeHeight',
-                'optionsTitleI18n' => 'optionsTitleI18n',
-                'optionsTitleValue' => 'optionsTitleValue',
+                'titleI18n' => 'titleI18n',
+                'titleValue' => 'titleValue',
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/extension/dialog/{{key}}',
             'method' => 'PUT',

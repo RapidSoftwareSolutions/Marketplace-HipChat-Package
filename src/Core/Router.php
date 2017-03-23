@@ -13,7 +13,6 @@ class Router
     private $blocks;
     private $custom;
     private $klein;
-    private $apiVersion;
     private $supportedMethods;
 
     public function __construct(
@@ -27,8 +26,7 @@ class Router
         $this->custom = $custom;
         $this->klein = new \Klein\Klein();
         $this->http = new \GuzzleHttp\Client(['verify' => false]);
-        $this->apiVersion = '2017-03-06';
-        $this->supportedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'API-KEY-GET'];
+        $this->supportedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
     }
 
     public function setup()
@@ -136,17 +134,17 @@ class Router
                 $sendBody = array_merge($blockCustom['default'], $sendBody);
             }
 
-            // Remove $accessToken from params
-            if(isset($sendBody['access_token'])&&strlen($sendBody['access_token'])>0){
-                $accessToken = $sendBody['access_token'];
-                unset($sendBody['access_token']);
+            // Remove $authToken from params
+            if(isset($sendBody['authToken'])&&strlen($sendBody['authToken'])>0){
+                $authToken = $sendBody['authToken'];
+                unset($sendBody['authToken']);
             }else{
-                $accessToken = false;
+                $authToken = false;
             }
 
             // If need, custom make custom processing for route
             if(isset($blockCustom['custom'])&&$blockCustom['custom'] == true){
-                $sendBody = CustomModel::$blockName($sendParam, $this->custom[$blockName], $vendorUrl, $this->apiVersion);
+                $sendBody = CustomModel::$blockName($sendParam, $this->custom[$blockName], $vendorUrl);
             }else{
                 unset($sendBody['appClientId']);
                 if(isset($this->custom[$blockName]['showApiType'])&&$this->custom[$blockName]['showApiType']==true){
@@ -156,7 +154,7 @@ class Router
             }
 
             // Make request
-            $result = $this->httpRequest($vendorUrl, $method, $sendBody, $accessToken);
+            $result = $this->httpRequest($vendorUrl, $method, $sendBody, $authToken);
             echo json_encode($result);
             exit(200);
         });
@@ -282,7 +280,7 @@ class Router
         return $result;
     }
 
-    protected function httpRequest($url, $method, $sendBody, $accessToken)
+    protected function httpRequest($url, $method, $sendBody, $authToken)
     {
         if($sendBody == '[]' || $sendBody == '{}'){
             $sendBody = '';
@@ -294,19 +292,16 @@ class Router
             $clientSetup = [
                 'headers' => [
                     'Content-Type' => 'application/json',
-                    'CB-VERSION' => $this->apiVersion,
                 ] ];
 
-            if($accessToken){
-                $clientSetup['headers']['Authorization'] = 'Bearer ' . $accessToken;
+            if($authToken){
+                $clientSetup['headers']['Authorization'] = 'Bearer ' . $authToken;
             }
 
-            if($method == 'API-KEY-GET'){
-                $clientSetup = $sendBody;
-                $method = 'GET';
-            }else{
-                $clientSetup['query'] = json_decode($sendBody, true);
+            if(is_string($sendBody)){
+                $sendBody = json_decode($sendBody, true);
             }
+            $clientSetup['body'] = $sendBody;
 
             $vendorResponse = $this->http->request($method, $url, $clientSetup);
             $responseBody = $vendorResponse->getBody()->getContents();
