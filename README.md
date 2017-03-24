@@ -64,7 +64,7 @@ Create a global action.
 | targetOptions| JSON  | JSON Object containing options which vary based on the type of target.
 | targetKey    | String| The key of a dialog glance or web panel that should be opened in response to this action.
 | weight       | Number| Determines the order in which the action appears in menu or list.
-| location     | String| The location of this action Valid values hipchat message action hipchat input action.
+| location     | String| The location of this action. One of: hipchat.message.action, hipchat.input.action.
 | conditions   | Array | Array of JSON objects of conditions determine whether this action is shown A mixed array of the following types.
 | nameI18n     | String| The optional localization key used to look up the localized value.
 | nameValue    | String| The default text.
@@ -715,7 +715,7 @@ Sends a user a private message. This API can only be called using a user token.
 | idOrEmail    | String| The id, email address, or mention name (beginning with an @) of the user to send a message to.
 | message      | String| The message body.
 | notify       | String| Whether this message should trigger a user notification.
-| messageFormat| String| Determines how the message is treated by our server and rendered inside HipChat applications. Valid values html, text.
+| messageFormat| String| Determines how the message is treated by our server and rendered inside HipChat applications. One of: html, text.
 
 ## HipChat.getPhoto
 Gets a user photo.
@@ -838,7 +838,7 @@ Create an action.
 | targetOptions| JSON  | JSON Object containing options which vary based on the type of target.
 | targetKey    | String| The key of a dialog glance or web panel that should be opened in response to this action.
 | weight       | Number| Determines the order in which the action appears in menu or list.
-| location     | String| The location of this action. One of: hipchat, message, action, hipchat, input, action.
+| location     | String| The location of this action. One of: hipchat.message.action, hipchat.input.action.
 | conditions   | Array | Array of JSON objects of conditions determine whether this action is shown.
 | nameI18n     | String| Localization key used to look up the localized value.
 | nameValue    | String| The display name of the action.
@@ -891,7 +891,7 @@ Create a dialog.
 | key                          | String | Unique key to identify this dialog.
 | roomIdOrName                 | String | The id of the room.
 | url                          | String | The url where the dialog content is hosted.
-| authentication               | String | The authentication method for this dialog Valid values jwt none.
+| authentication               | String | The authentication method for this dialog. One of: jwt, none.
 | optionsStyle                 | String | The dialog style. One of: normal, warning.
 | optionsHintI18n              | String | Localization key used to look up the localized value.
 | optionsHintValue             | String | The dialog hint, default text.

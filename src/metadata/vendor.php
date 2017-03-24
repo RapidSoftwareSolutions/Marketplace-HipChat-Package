@@ -176,14 +176,14 @@ return array (
                 array (
                     'name' => 'location',
                     'type' => 'String',
-                    'info' => 'The location of this action Valid values hipchat message action hipchat input action.',
+                    'info' => 'The location of this action. One of: hipchat.message.action, hipchat.input.action.',
                     'required' => true,
                 ),
                 array (
                     'name' => 'conditions',
                     'type' => 'Array',
                     'info' => 'Array of JSON objects of conditions determine whether this action is shown A mixed array of the following types.',
-                    'required' => true,
+                    'required' => false,
                 ),
                 array (
                     'name' => 'nameI18n',
@@ -513,7 +513,7 @@ return array (
                     'name' => 'conditions',
                     'type' => 'Array',
                     'info' => 'Array of JSON objects of conditions determine whether this glance is shown.',
-                    'required' => true,
+                    'required' => false,
                 ),
                 array (
                     'name' => 'nameI18n',
@@ -1448,7 +1448,7 @@ return array (
                 array (
                     'name' => 'messageFormat',
                     'type' => 'String',
-                    'info' => 'Determines how the message is treated by our server and rendered inside HipChat applications. Valid values html, text.',
+                    'info' => 'Determines how the message is treated by our server and rendered inside HipChat applications. One of: html, text.',
                     'required' => false,
                 ),
             ),
@@ -1826,7 +1826,7 @@ return array (
                 array (
                     'name' => 'location',
                     'type' => 'String',
-                    'info' => 'The location of this action. One of: hipchat, message, action, hipchat, input, action.',
+                    'info' => 'The location of this action. One of: hipchat.message.action, hipchat.input.action.',
                     'required' => true,
                 ),
                 array (
@@ -1928,7 +1928,7 @@ return array (
                 array (
                     'name' => 'authentication',
                     'type' => 'String',
-                    'info' => 'The authentication method for this dialog Valid values jwt none.',
+                    'info' => 'The authentication method for this dialog. One of: jwt, none.',
                     'required' => false,
                 ),
                 array (
