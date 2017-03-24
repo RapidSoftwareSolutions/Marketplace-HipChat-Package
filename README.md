@@ -3,21 +3,18 @@
 # HipChat Package
 Connect to the HipChat Enterprise Messaging API to build bots or slash commands for this enterprise chat app. Test an API call and export the code snippet.
 * Domain: hipchat.com
-* Credentials: clientId, clientSecret
-
-## How to get credentials: 
-0. Item one 
-1. Item two 
 
 ## HipChat.getAccessToken
-Geta access token.
+Gets an OAuth token for requested grant type.
 
-| Field       | Type       | Description
-|-------------|------------|----------
-| clientId    | credentials| Client identifier.
-| clientSecret| credentials| Client secret.
-| redirectUri | String     | URL in your app where users will be sent after authorization.
-| code        | String     | A one-time use code that may be exchanged for a bearer token.
+| Field      | Type  | Description
+|------------|-------|----------
+| code       | String| The authorization code to exchange for an access token.
+| userId     | String| The id of the user the token is acting on behalf of.
+| clientName | String| The name of the public oauth client retrieving a token for.
+| redirectUri| String| The URL that was used to generate an authorization code, and it must match that value.
+| scope      | String| A space-delimited list of scopes that is requested.
+| groupId    | String| The name of the group to which the related user belongs.
 
 ## HipChat.getCapabilities
 Gets the capabilities descriptor.
@@ -64,13 +61,34 @@ Create a global action.
 |--------------|-------|----------
 | authToken    | String| API access token.
 | key          | String| Unique key to identify this action.
-| targetOptions| JSON  | An object containing options which vary based on the type of target.
+| targetOptions| JSON  | JSON Object containing options which vary based on the type of target.
 | targetKey    | String| The key of a dialog glance or web panel that should be opened in response to this action.
 | weight       | Number| Determines the order in which the action appears in menu or list.
 | location     | String| The location of this action Valid values hipchat message action hipchat input action.
-| conditions   | Array | Conditions determine whether this action is shown A mixed array of the following types. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}].
-| i18n         | String| The optional localization key used to look up the localized value.
-| value        | String| The default text.
+| conditions   | Array | Array of JSON objects of conditions determine whether this action is shown A mixed array of the following types.
+| nameI18n     | String| The optional localization key used to look up the localized value.
+| nameValue    | String| The default text.
+
+#### Example of 'conditions' field
+```json
+[{
+	"invert": false,
+	"params": {},
+	"condition": "room_is_public",
+	"conditions": [{
+		"invert": false,
+		"params": {},
+		"condition": "room_is_public",
+		"conditions": [{
+			"invert": false,
+			"params": {},
+			"condition": "room_is_public"
+		}],
+		"type": "and"
+	}],
+	"type": "and"
+}]
+```
 
 ## HipChat.deleteGlobalAction
 Delete a global action.
@@ -106,11 +124,23 @@ Create a global dialog.
 | optionsPrimaryActionNameI18n | String | The optional localization key used to look up the localized value.
 | optionsPrimaryActionNameValue| String | The default text.
 | optionsPrimaryActionKey      | String | A key that can be used to register an event listener.
-| optionsSecondaryActions      | Array  | The secondary actions of the dialog rendered as link buttons. Example [{"enabled": false,"name": {"i18n": "","value": ""},"key": ""}].
+| optionsSecondaryActions      | Array  | Array of JSON objects of secondary actions of the dialog rendered as link buttons.
 | optionsSizeWidth             | String | The width of the dialog either in pixels px or as a percentage.
 | optionsSizeHeight            | String | The height of the dialog either in pixels px or as a percentage.
-| optionsTitleI18n             | String | The optional localization key used to look up the localized value.
-| optionsTitleValue            | String | The default text.
+| titleI18n                    | String | The optional localization key used to look up the localized value.
+| titleValue                   | String | The default text.
+
+#### Example of 'optionsSecondaryActions' field
+```json
+[{
+	"enabled": false,
+	"name": {
+		"i18n": "nameI18n",
+		"value": "nameValue"
+	},
+	"key": "key"
+}]
+```
 
 ## HipChat.deleteGlobalDialog
 Delete a global.
@@ -138,7 +168,6 @@ Create a global external page.
 | url      | String| The URL of the external page.
 | nameI18n | String| The optional localization key used to look up the localized value.
 | nameValue| String| The default text.
-| key      | String| Unique key to identify this external page.
 
 ## HipChat.deleteGlobalExternalPage
 Delete a global external page.
@@ -163,15 +192,36 @@ Create a global glance.
 |--------------|-------|----------
 | authToken    | String| API access token.
 | key          | String| Unique key to identify this glance.
-| targetOptions| JSON  | An object containing options which vary based on the type of target.
+| targetOptions| JSON  | JSON Object containing options which vary based on the type of target.
 | targetKey    | String| The key of a dialog glance or web panel that should be opened in response to this action.
 | weight       | Number| Determines the order in which glances appear Glances are displayed top to bottom in order of ascending weight.
 | queryUrl     | String| The URL of the resource providing the glance content.
 | iconUrl      | String| Url for the icon.
 | iconUrl2x    | String| Url for the retina version of the icon.
-| conditions   | Array | Conditions determine whether this glance is shown. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}].
+| conditions   | Array | Array of JSON objects of conditions determine whether this glance is shown.
 | nameI18n     | String| The optional localization key.
 | nameValue    | String| The display name of the glance text.
+
+#### Example of 'conditions' field
+```json
+[{
+	"invert": false,
+	"params": {},
+	"condition": "room_is_public",
+	"conditions": [{
+		"invert": false,
+		"params": {},
+		"condition": "room_is_public",
+		"conditions": [{
+			"invert": false,
+			"params": {},
+			"condition": "room_is_public"
+		}],
+		"type": "and"
+	}],
+	"type": "and"
+}]
+```
 
 ## HipChat.deleteGlobalGlance
 Delete a global glance.
@@ -202,9 +252,30 @@ Create a global web panel.
 | url           | String| The URL of the resource providing the view content.
 | authentication| String| The authentication method for this webpanel. One of: jwt, none.
 | location      | String| The location of this webPanel. One of: hipchat, sidebar, right.
-| conditions    | Array | Conditions determine whether this web panel is shown. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}].
+| conditions    | Array | Array of JSON objects of conditions determine whether this web panel is shown.
 | iconUrl       | String| Url for the icon to display on the left side of the webPanel title.
 | iconUrl2x     | String| Url for the retina version of the icon to display on the left side of the webPanel title.
+
+#### Example of 'conditions' field
+```json
+[{
+	"invert": false,
+	"params": {},
+	"condition": "room_is_public",
+	"conditions": [{
+		"invert": false,
+		"params": {},
+		"condition": "room_is_public",
+		"conditions": [{
+			"invert": false,
+			"params": {},
+			"condition": "room_is_public"
+		}],
+		"type": "and"
+	}],
+	"type": "and"
+}]
+```
 
 ## HipChat.deleteGlobalWebPanel
 Delete a global web panel.
@@ -323,7 +394,48 @@ Push addon ui update to a group.
 | Field    | Type  | Description
 |----------|-------|----------
 | authToken| String| API access token.
-| glance   | Array | Glances to update. Example [{"content": {"status": {"type": "","value": {"type": "","label": ""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}] or [{"content": {"status": {"type": "","value": {"url":"","url@2x":""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}].
+| glance   | Array | Array of JSON objects of glances to update.
+
+#### Example of 'glance' field
+```json
+[{
+	"content": {
+		"status": {
+			"type": "lozenge",
+			"value": {
+				"type": "default",
+				"label": "label"
+			}
+		},
+		"metadata": "metadata",
+		"label": {
+			"type": "html",
+			"value": "value"
+		}
+	},
+	"key": "key"
+}]
+```
+##### or
+```json
+[{
+	"content": {
+		"status": {
+			"type": "lozenge",
+			"value": {
+				"url": "https://logo.clearbit.com/hipchat.com?s=128",
+				"url@2x": "https://logo.clearbit.com/hipchat.com?s=128"
+			}
+		},
+		"metadata": "metadata",
+		"label": {
+			"type": "html",
+			"value": "value"
+		}
+	},
+	"key": "key"
+}]
+```
 
 ## HipChat.pushUIChangesToRoom
 Push addon ui update to a room.
@@ -332,7 +444,48 @@ Push addon ui update to a room.
 |-------------|-------|----------
 | authToken   | String| API access token.
 | roomIdOrName| Number| The id or url encoded name of the room to push the ui updates.
-| glance      | Array | Glances to update. Example [{"content": {"status": {"type": "","value": {"type": "","label": ""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}] or [{"content": {"status": {"type": "","value": {"url":"","url@2x":""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}].
+| glance      | Array | Array of JSON objects of glances to update.
+
+#### Example of 'glance' field
+```json
+[{
+	"content": {
+		"status": {
+			"type": "lozenge",
+			"value": {
+				"type": "default",
+				"label": "label"
+			}
+		},
+		"metadata": "metadata",
+		"label": {
+			"type": "html",
+			"value": "value"
+		}
+	},
+	"key": "key"
+}]
+```
+##### or
+```json
+[{
+	"content": {
+		"status": {
+			"type": "lozenge",
+			"value": {
+				"url": "https://logo.clearbit.com/hipchat.com?s=128",
+				"url@2x": "https://logo.clearbit.com/hipchat.com?s=128"
+			}
+		},
+		"metadata": "metadata",
+		"label": {
+			"type": "html",
+			"value": "value"
+		}
+	},
+	"key": "key"
+}]
+```
 
 ## HipChat.pushUIChangesToUserInRoom
 Push addon ui update to a single user in a room.
@@ -342,7 +495,48 @@ Push addon ui update to a single user in a room.
 | authToken    | String| API access token.
 | userIdOrEmail| Number| The id or email of the user to push the ui updates.
 | roomIdOrName | Number| The id or url encoded name of the room to push the ui updates.
-| glance       | Array | Glances to update. Example [{"content": {"status": {"type": "","value": {"type": "","label": ""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}] or [{"content": {"status": {"type": "","value": {"url":"","url@2x":""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}].
+| glance       | Array | Array of JSON objects of glances to update.
+
+#### Example of 'glance' field
+```json
+[{
+	"content": {
+		"status": {
+			"type": "lozenge",
+			"value": {
+				"type": "default",
+				"label": "label"
+			}
+		},
+		"metadata": "metadata",
+		"label": {
+			"type": "html",
+			"value": "value"
+		}
+	},
+	"key": "key"
+}]
+```
+##### or
+```json
+[{
+	"content": {
+		"status": {
+			"type": "lozenge",
+			"value": {
+				"url": "https://logo.clearbit.com/hipchat.com?s=128",
+				"url@2x": "https://logo.clearbit.com/hipchat.com?s=128"
+			}
+		},
+		"metadata": "metadata",
+		"label": {
+			"type": "html",
+			"value": "value"
+		}
+	},
+	"key": "key"
+}]
+```
 
 ## HipChat.pushUIChangesToUser
 Push addon ui update to a user.
@@ -351,7 +545,48 @@ Push addon ui update to a user.
 |-------------|-------|----------
 | authToken   | String| API access token.
 | userIdOrName| Number| The id or name of the user to push the ui updates.
-| glance      | Array | Glances to update. Example [{"content": {"status": {"type": "","value": {"type": "","label": ""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}] or [{"content": {"status": {"type": "","value": {"url":"","url@2x":""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}].
+| glance      | Array | Array of JSON objects of glances to update.
+
+#### Example of 'glance' field
+```json
+[{
+	"content": {
+		"status": {
+			"type": "lozenge",
+			"value": {
+				"type": "default",
+				"label": "label"
+			}
+		},
+		"metadata": "metadata",
+		"label": {
+			"type": "html",
+			"value": "value"
+		}
+	},
+	"key": "key"
+}]
+```
+##### or
+```json
+[{
+	"content": {
+		"status": {
+			"type": "lozenge",
+			"value": {
+				"url": "https://logo.clearbit.com/hipchat.com?s=128",
+				"url@2x": "https://logo.clearbit.com/hipchat.com?s=128"
+			}
+		},
+		"metadata": "metadata",
+		"label": {
+			"type": "html",
+			"value": "value"
+		}
+	},
+	"key": "key"
+}]
+```
 
 ## HipChat.inviteUserToGroup
 Invites a user to join a group.
@@ -391,7 +626,7 @@ Creates a new user.
 |-------------|--------|----------
 | authToken   | String | API access token.
 | name        | String | User's full name.
-| roles       | String | Comma-separated list of roles for the user.
+| roles       | Array  | Array of Strings, of list, of roles for the user.
 | title       | String | User's title.
 | mentionName | String | User's @mention name.
 | isGroupAdmin| Boolean| Whether or not this user is an admin.
@@ -600,13 +835,34 @@ Create an action.
 | authToken    | String| API access token.
 | key          | String| Unique key to identify this action.
 | roomIdOrName | String| The id of the room.
-| targetOptions| JSON  | An object containing options which vary based on the type of target.
+| targetOptions| JSON  | JSON Object containing options which vary based on the type of target.
 | targetKey    | String| The key of a dialog glance or web panel that should be opened in response to this action.
 | weight       | Number| Determines the order in which the action appears in menu or list.
 | location     | String| The location of this action. One of: hipchat, message, action, hipchat, input, action.
-| conditions   | Array | Conditions determine whether this action is shown. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}].
+| conditions   | Array | Array of JSON objects of conditions determine whether this action is shown.
 | nameI18n     | String| Localization key used to look up the localized value.
 | nameValue    | String| The display name of the action.
+
+#### Example of 'conditions' field
+```json
+[{
+	"invert": false,
+	"params": {},
+	"condition": "room_is_public",
+	"conditions": [{
+		"invert": false,
+		"params": {},
+		"condition": "room_is_public",
+		"conditions": [{
+			"invert": false,
+			"params": {},
+			"condition": "room_is_public"
+		}],
+		"type": "and"
+	}],
+	"type": "and"
+}]
+```
 
 ## HipChat.deleteRoomAction
 Delete an action.
@@ -629,31 +885,39 @@ Retrieve a dialog.
 ## HipChat.createRoomDialog
 Create a dialog.
 
-| Field                           | Type   | Description
-|---------------------------------|--------|----------
-| authToken                       | String | API access token.
-| key                             | String | Unique key to identify this dialog.
-| roomIdOrName                    | String | The id of the room.
-| url                             | String | The url where the dialog content is hosted.
-| authentication                  | String | The authentication method for this dialog Valid values jwt none.
-| optionsStyle                    | String | The dialog style. One of: normal, warning.
-| optionsHintI18n                 | String | Localization key used to look up the localized value.
-| optionsHintValue                | String | The dialog hint, default text.
-| optionsFilterPlaceholderI18n    | String | Filter box placeholder text localization key used to look up the localized value.
-| optionsFilterPlaceholderValue   | String | filter box placeholder default text.
-| primaryAction                   | JSON   | The primary action of the dialog rendered as a primary button.
-| optionsPrimaryActionEnabled     | Boolean| Whether button of primary action is disabled or enabled.
-| optionsPrimaryActionNameI18n    | String | Primary action button localization key used to look up the localized value.
-| optionsPrimaryActionNameValue   | String | Primary action button default text.
-| optionsPrimaryActionKey         | String | A key that can be used to register an event listener.
-| optionsSecondaryActionsEnabled  | Boolean| Whether button of secondary actions is disabled or enabled default true.
-| optionsSecondaryActionsNameI18n | String | Secondary actions name localization key used to look up the localized value.
-| optionsSecondaryActionsNameValue| String | Secondary actions name default text.
-| optionsSecondaryActionsKey      | String | Secondary actions key that can be used to register an event listener.
-| optionsSizeWidth                | String | The width of the dialog either in pixels px or as a percentage.
-| optionsSizeHeight               | String | The height of the dialog either in pixels px or as a percentage.
-| titleI18n                       | String | The dialog title localization key used to look up the localized value.
-| titleValue                      | String | The dialog title default text.
+| Field                        | Type   | Description
+|------------------------------|--------|----------
+| authToken                    | String | API access token.
+| key                          | String | Unique key to identify this dialog.
+| roomIdOrName                 | String | The id of the room.
+| url                          | String | The url where the dialog content is hosted.
+| authentication               | String | The authentication method for this dialog Valid values jwt none.
+| optionsStyle                 | String | The dialog style. One of: normal, warning.
+| optionsHintI18n              | String | Localization key used to look up the localized value.
+| optionsHintValue             | String | The dialog hint, default text.
+| optionsFilterPlaceholderI18n | String | Filter box placeholder text localization key used to look up the localized value.
+| optionsFilterPlaceholderValue| String | filter box placeholder default text.
+| optionsPrimaryActionEnabled  | Boolean| Whether button of primary action is disabled or enabled.
+| optionsPrimaryActionNameI18n | String | Primary action button localization key used to look up the localized value.
+| optionsPrimaryActionNameValue| String | Primary action button default text.
+| optionsPrimaryActionKey      | String | A key that can be used to register an event listener.
+| optionsSecondaryActions      | Array  | Array of JSON objects of secondary actions of the dialog, rendered as link buttons.
+| optionsSizeWidth             | String | The width of the dialog either in pixels px or as a percentage.
+| optionsSizeHeight            | String | The height of the dialog either in pixels px or as a percentage.
+| titleI18n                    | String | The dialog title localization key used to look up the localized value.
+| titleValue                   | String | The dialog title default text.
+
+#### Example of 'optionsSecondaryActions' field
+```json
+[{
+	"enabled": false,
+	"name": {
+		"i18n": "i18n",
+		"value": "value"
+	},
+	"key": "key"
+}]
+```
 
 ## HipChat.deleteRoomDialog
 Delete a dialog.
@@ -711,15 +975,36 @@ Create a glance.
 | authToken    | String| API access token.
 | key          | String| Unique key to identify this glance.
 | roomIdOrName | String| The id of the room.
-| targetOptions| JSON  | Options which vary based on the type of target.
+| targetOptions| JSON  | JSON Object of options which vary based on the type of target.
 | targetKey    | String| The key of a dialog glance or web panel that should be opened in response to this action.
 | weight       | Number| Determines the order in which glances appear. Glances are displayed top to bottom in order of ascending weight.
 | queryUrl     | String| The URL of the resource providing the glance content.
 | iconUrl      | String| Url for the icon to display on the left side of the glance.
 | iconUrl2x    | String| Url for the retina version of the icon to display on the left side of the glance.
-| conditions   | Array | Conditions determine whether this glance is shown. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}].
+| conditions   | Array | Array of JSON objects of conditions determine whether this glance is shown.
 | nameI18n     | String| Display name of the glance localization key used to look up the localized value.
 | nameValue    | String| The display name of the glance default text.
+
+#### Example of 'conditions' field
+```json
+[{
+	"invert": false,
+	"params": {},
+	"condition": "room_is_public",
+	"conditions": [{
+		"invert": false,
+		"params": {},
+		"condition": "room_is_public",
+		"conditions": [{
+			"invert": false,
+			"params": {},
+			"condition": "room_is_public"
+		}],
+		"type": "and"
+	}],
+	"type": "and"
+}]
+```
 
 ## HipChat.deleteRoomGlance
 Delete a glance.
@@ -753,9 +1038,30 @@ Create a web panel.
 | url           | String| The URL of the resource providing the view content.
 | authentication| String| The authentication method for this webpanel. One of: jwt, none.
 | location      | String| The location of this webPanel. One of: hipchat, sidebar, right.
-| conditions    | Array | Conditions determine whether this web panel is shown. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": {"invert": false,"params": {},"condition": ""},"type": ""}],"type": ""}].
+| conditions    | Array | Array of JSON objects of conditions determine whether this web panel is shown.
 | iconUrl       | String| Url for the icon to display on the left side of the webPanel title.
 | iconUrl2x     | String| Url for the retina version of the icon to display on the left side of the webPanel title.
+
+#### Example of 'conditions' field
+```json
+[{
+	"invert": false,
+	"params": {},
+	"condition": "room_is_public",
+	"conditions": [{
+		"invert": false,
+		"params": {},
+		"condition": "room_is_public",
+		"conditions": {
+			"invert": false,
+			"params": {},
+			"condition": "room_is_public"
+		},
+		"type": "and"
+	}],
+	"type": "and"
+}]
+```
 
 ## HipChat.deleteRoomWebPanel
 Delete a web panel.
@@ -854,7 +1160,7 @@ Adds a member to a private room and sends member's unavailable presence to all r
 | authToken    | String| API access token.
 | userIdOrEmail| Number| The id, email address, or mention name (beginning with an @) of the user.
 | roomIdOrName | String| The id or url encoded name of the room.
-| roomRoles    | Array | The list of roles for the user within the room.
+| roomRoles    | Array | Array of Strings. List of roles for the user within the room.
 
 ## HipChat.removeMemberFromRoom
 Removes a member from a private room.
@@ -910,10 +1216,26 @@ Send a message to a room.
 | cardActivityHtml     | String| Html for the activity to show in one line a summary of the action that happened.
 | cardActivityIconUrl  | String| The url where the icon is.
 | cardActivityIconUrl2x| String| The url for the icon in retina.
-| cardAttributes       | Array | List of attributes to show below the card. Example [{"value": {"url": "","style": "","label": "","icon": {"url": "","url@2x": ""}},"label": ""}].
+| cardAttributes       | Array | Array of JSON objects of list of attributes to show below the card.
 | cardId               | String| An id that will help HipChat recognise the same card when it is sent multiple times.
 | cardIconUrl          | String| The url where the card icon is.
 | cardIconUrl2x        | String| The url for the card icon in retina.
+
+#### Example of 'cardAttributes' field
+```json
+[{
+	"value": {
+		"url": "http://127.0.0.1",
+		"style": "lozenge-success",
+		"label": "label",
+		"icon": {
+			"url": "https://logo.clearbit.com/hipchat.com?s=128",
+			"url@2x": "https://logo.clearbit.com/hipchat.com?s=128"
+		}
+	},
+	"label": "label"
+}]
+```
 
 ## HipChat.getRoomtAllParticipants
 Gets all participants in this room.
@@ -998,16 +1320,4 @@ Deletes the OAuth session via its associated access_token Authentication require
 |------------|-------|----------
 | authToken  | String| API access token.
 | accessToken| String| The OAuth accessToken.
-
-## HipChat.getAccessToken
-Gets an OAuth token for requested grant type.
-
-| Field      | Type  | Description
-|------------|-------|----------
-| code       | String| The authorization code to exchange for an access token.
-| userId     | String| The id of the user the token is acting on behalf of.
-| clientName | String| The name of the public oauth client retrieving a token for.
-| redirectUri| String| The URL that was used to generate an authorization code, and it must match that value.
-| scope      | String| A space-delimited list of scopes that is requested.
-| groupId    | String| The name of the group to which the related user belongs.
 

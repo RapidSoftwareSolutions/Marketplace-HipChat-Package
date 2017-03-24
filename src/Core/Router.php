@@ -26,7 +26,7 @@ class Router
         $this->custom = $custom;
         $this->klein = new \Klein\Klein();
         $this->http = new \GuzzleHttp\Client(['verify' => false]);
-        $this->supportedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
+        $this->supportedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'POST-RAW'];
     }
 
     public function setup()
@@ -90,7 +90,7 @@ class Router
                 echo $inputPram;
                 exit(200);
             }
-            
+
             // Validate param as reqiured and/or json
             $validateResult = $this->validateParam($inputPram, $param['required'], $param['json']);
             if($validateResult){
@@ -220,7 +220,7 @@ class Router
         if(count($requiredPram)>0){
             $requiredPramCheck = [];
             foreach($requiredPram as $oneParam){
-                if(!isset($inputParam[$oneParam]) || $inputParam[$oneParam] === false || $inputParam[$oneParam] === ''){
+                if(!isset($inputParam[$oneParam]) || $inputParam[$oneParam] === null || $inputParam[$oneParam] === ''){
                     array_push($requiredPramCheck, $oneParam);
                 }
             }
@@ -238,7 +238,7 @@ class Router
         if(count($jsonParams)>0){
             $jsonParamsCheck = [];
             foreach($jsonParams as $oneParam){
-                if(isset($inputParam[$oneParam]) && $inputParam[$oneParam] != false){
+                if(isset($inputParam[$oneParam]) && $inputParam[$oneParam] != null){
                     if(!is_array($inputParam[$oneParam])) {
                         array_push($jsonParamsCheck, $oneParam);
                     }
@@ -262,7 +262,7 @@ class Router
     {
         $result = [];
         foreach($inputParam as $paramName => $paramVal){
-            if($paramVal == null){
+            if($paramVal === null){
                 continue;
             }
             // Convert numeric in Numeric type
@@ -271,7 +271,7 @@ class Router
             }
             // Substitution using dictionary
             $finalParamName = $paramName;
-            if(count($dictionary)>0 && $paramVal != false && isset($dictionary[$paramName])) {
+            if(count($dictionary)>0 && isset($dictionary[$paramName])) {
                 $finalParamName = $dictionary[$paramName];
             }
             $result[$finalParamName] = $paramVal;
@@ -298,12 +298,19 @@ class Router
                 $clientSetup['headers']['Authorization'] = 'Bearer ' . $authToken;
             }
 
-            if(is_string($sendBody)){
-                $sendBody = json_decode($sendBody, true);
+            if($method == 'POST-RAW'){
+                $clientSetup = $sendBody;
+
+                $method = 'POST';
+            }else{
+                if(is_string($sendBody)){
+                    $sendBody = json_decode($sendBody, true);
+                }
+                $clientSetup['body'] = $sendBody;
             }
-            $clientSetup['body'] = $sendBody;
 
             $vendorResponse = $this->http->request($method, $url, $clientSetup);
+
             $responseBody = $vendorResponse->getBody()->getContents();
 
             if($responseBody === 'true'||$responseBody==='false'){

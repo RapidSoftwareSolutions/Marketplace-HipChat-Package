@@ -10,37 +10,47 @@ return array (
     ),
     'accounts' => array (
         'domain' => 'hipchat.com',
-        'credentials' => array (
-            'clientId', 'clientSecret',
-        ),
+        'credentials' => array (),
     ),
     'blocks' => array (
         array (
             'name' => 'getAccessToken',
-            'description' => 'Geta access token.',
+            'description' => 'Gets an OAuth token for requested grant type.',
             'args' => array (
                 array (
-                    'name' => 'clientId',
-                    'type' => 'credentials',
-                    'info' => 'Client identifier.',
+                    'name' => 'code',
+                    'type' => 'String',
+                    'info' => 'The authorization code to exchange for an access token.',
                     'required' => true,
                 ),
                 array (
-                    'name' => 'clientSecret',
-                    'type' => 'credentials',
-                    'info' => 'Client secret.',
+                    'name' => 'userId',
+                    'type' => 'String',
+                    'info' => 'The id of the user the token is acting on behalf of.',
+                    'required' => true,
+                ),
+                array (
+                    'name' => 'clientName',
+                    'type' => 'String',
+                    'info' => 'The name of the public oauth client retrieving a token for.',
                     'required' => true,
                 ),
                 array (
                     'name' => 'redirectUri',
                     'type' => 'String',
-                    'info' => 'URL in your app where users will be sent after authorization.',
+                    'info' => 'The URL that was used to generate an authorization code, and it must match that value.',
                     'required' => true,
                 ),
                 array (
-                    'name' => 'code',
+                    'name' => 'scope',
                     'type' => 'String',
-                    'info' => 'A one-time use code that may be exchanged for a bearer token.',
+                    'info' => 'A space-delimited list of scopes that is requested.',
+                    'required' => true,
+                ),
+                array (
+                    'name' => 'groupId',
+                    'type' => 'String',
+                    'info' => 'The name of the group to which the related user belongs.',
                     'required' => true,
                 ),
             ),
@@ -148,7 +158,7 @@ return array (
                 array (
                     'name' => 'targetOptions',
                     'type' => 'JSON',
-                    'info' => 'An object containing options which vary based on the type of target.',
+                    'info' => 'JSON Object containing options which vary based on the type of target.',
                     'required' => false,
                 ),
                 array (
@@ -172,7 +182,7 @@ return array (
                 array (
                     'name' => 'conditions',
                     'type' => 'Array',
-                    'info' => 'Conditions determine whether this action is shown A mixed array of the following types. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}].',
+                    'info' => 'Array of JSON objects of conditions determine whether this action is shown A mixed array of the following types.',
                     'required' => true,
                 ),
                 array (
@@ -227,7 +237,7 @@ return array (
         ),
         array (
             'name' => 'createGlobalDialog',
-            'description' => 'Create a global dialog. Example: {"url": "","authentication": "","options": {"style": "","hint": {"i18n": "","value": ""},"filter": {"placeholder": {"i18n": "","value": ""}},"primaryAction": {"enabled": "","name": {"i18n": "","value": ""},"key": ""},"secondaryActions": [{"enabled": false,"name": {"i18n": "","value": ""},"key": ""}],"size": {"width": "","height": ""},"key": "","title": {"i18n": "","value": ""}}}.',
+            'description' => 'Create a global dialog.',
             'args' => array (
                 array (
                     'name' => 'authToken',
@@ -310,7 +320,7 @@ return array (
                 array (
                     'name' => 'optionsSecondaryActions',
                     'type' => 'Array',
-                    'info' => 'The secondary actions of the dialog rendered as link buttons. Example [{"enabled": false,"name": {"i18n": "","value": ""},"key": ""}].',
+                    'info' => 'Array of JSON objects of secondary actions of the dialog rendered as link buttons.',
                     'required' => false,
                 ),
                 array (
@@ -466,7 +476,7 @@ return array (
                 array (
                     'name' => 'targetOptions',
                     'type' => 'JSON',
-                    'info' => 'An object containing options which vary based on the type of target.',
+                    'info' => 'JSON Object containing options which vary based on the type of target.',
                     'required' => false,
                 ),
                 array (
@@ -502,7 +512,7 @@ return array (
                 array (
                     'name' => 'conditions',
                     'type' => 'Array',
-                    'info' => 'Conditions determine whether this glance is shown. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}].',
+                    'info' => 'Array of JSON objects of conditions determine whether this glance is shown.',
                     'required' => true,
                 ),
                 array (
@@ -610,7 +620,7 @@ return array (
                 array (
                     'name' => 'conditions',
                     'type' => 'Array',
-                    'info' => 'Conditions determine whether this web panel is shown. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}].',
+                    'info' => 'Array of JSON objects of conditions determine whether this web panel is shown.',
                     'required' => false,
                 ),
                 array (
@@ -916,7 +926,7 @@ return array (
                 array (
                     'name' => 'glance',
                     'type' => 'Array',
-                    'info' => 'Glances to update. Example [{"content": {"status": {"type": "","value": {"type": "","label": ""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}] or [{"content": {"status": {"type": "","value": {"url":"","url@2x":""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}].',
+                    'info' => 'Array of JSON objects of glances to update.',
                     'required' => true,
                 ),
             ),
@@ -940,7 +950,7 @@ return array (
                 array (
                     'name' => 'glance',
                     'type' => 'Array',
-                    'info' => 'Glances to update. Example [{"content": {"status": {"type": "","value": {"type": "","label": ""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}] or [{"content": {"status": {"type": "","value": {"url":"","url@2x":""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}].',
+                    'info' => 'Array of JSON objects of glances to update.',
                     'required' => true,
                 ),
             ),
@@ -970,7 +980,7 @@ return array (
                 array (
                     'name' => 'glance',
                     'type' => 'Array',
-                    'info' => 'Glances to update. Example [{"content": {"status": {"type": "","value": {"type": "","label": ""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}] or [{"content": {"status": {"type": "","value": {"url":"","url@2x":""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}].',
+                    'info' => 'Array of JSON objects of glances to update.',
                     'required' => true,
                 ),
             ),
@@ -994,7 +1004,7 @@ return array (
                 array (
                     'name' => 'glance',
                     'type' => 'Array',
-                    'info' => 'Glances to update. Example [{"content": {"status": {"type": "","value": {"type": "","label": ""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}] or [{"content": {"status": {"type": "","value": {"url":"","url@2x":""}},"metadata": "","label": {"type": "","value": ""}},"key": ""}].',
+                    'info' => 'Array of JSON objects of glances to update.',
                     'required' => true,
                 ),
             ),
@@ -1113,8 +1123,8 @@ return array (
                 ),
                 array (
                     'name' => 'roles',
-                    'type' => 'String',
-                    'info' => 'Comma-separated list of roles for the user.',
+                    'type' => 'Array',
+                    'info' => 'Array of Strings, of list, of roles for the user.',
                     'required' => false,
                 ),
                 array (
@@ -1798,7 +1808,7 @@ return array (
                 array (
                     'name' => 'targetOptions',
                     'type' => 'JSON',
-                    'info' => 'An object containing options which vary based on the type of target.',
+                    'info' => 'JSON Object containing options which vary based on the type of target.',
                     'required' => false,
                 ),
                 array (
@@ -1822,7 +1832,7 @@ return array (
                 array (
                     'name' => 'conditions',
                     'type' => 'Array',
-                    'info' => 'Conditions determine whether this action is shown. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}].',
+                    'info' => 'Array of JSON objects of conditions determine whether this action is shown.',
                     'required' => false,
                 ),
                 array (
@@ -1952,12 +1962,6 @@ return array (
                     'required' => true,
                 ),
                 array (
-                    'name' => 'primaryAction',
-                    'type' => 'JSON',
-                    'info' => 'The primary action of the dialog rendered as a primary button.',
-                    'required' => false,
-                ),
-                array (
                     'name' => 'optionsPrimaryActionEnabled',
                     'type' => 'Boolean',
                     'info' => 'Whether button of primary action is disabled or enabled.',
@@ -1982,27 +1986,9 @@ return array (
                     'required' => false,
                 ),
                 array (
-                    'name' => 'optionsSecondaryActionsEnabled',
-                    'type' => 'Boolean',
-                    'info' => 'Whether button of secondary actions is disabled or enabled default true.',
-                    'required' => false,
-                ),
-                array (
-                    'name' => 'optionsSecondaryActionsNameI18n',
-                    'type' => 'String',
-                    'info' => 'Secondary actions name localization key used to look up the localized value.',
-                    'required' => false,
-                ),
-                array (
-                    'name' => 'optionsSecondaryActionsNameValue',
-                    'type' => 'String',
-                    'info' => 'Secondary actions name default text.',
-                    'required' => true,
-                ),
-                array (
-                    'name' => 'optionsSecondaryActionsKey',
-                    'type' => 'String',
-                    'info' => 'Secondary actions key that can be used to register an event listener.',
+                    'name' => 'optionsSecondaryActions',
+                    'type' => 'Array',
+                    'info' => 'Array of JSON objects of secondary actions of the dialog, rendered as link buttons.',
                     'required' => false,
                 ),
                 array (
@@ -2171,7 +2157,7 @@ return array (
         ),
         array (
             'name' => 'createRoomGlance',
-            'description' => 'Create a glance. Example {"target": {"options": {},"key": ""},"weight": 111,"key": "","queryUrl": "","icon": {"url": "","url@2x": ""},"conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}],"name": {"i18n": "","value": ""}}.',
+            'description' => 'Create a glance.',
             'args' => array (
                 array (
                     'name' => 'authToken',
@@ -2194,7 +2180,7 @@ return array (
                 array (
                     'name' => 'targetOptions',
                     'type' => 'JSON',
-                    'info' => 'Options which vary based on the type of target.',
+                    'info' => 'JSON Object of options which vary based on the type of target.',
                     'required' => false,
                 ),
                 array (
@@ -2230,7 +2216,7 @@ return array (
                 array (
                     'name' => 'conditions',
                     'type' => 'Array',
-                    'info' => 'Conditions determine whether this glance is shown. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": ""}],"type": ""}],"type": ""}].',
+                    'info' => 'Array of JSON objects of conditions determine whether this glance is shown.',
                     'required' => false,
                 ),
                 array (
@@ -2297,7 +2283,7 @@ return array (
         ),
         array (
             'name' => 'createRoomWebPanel',
-            'description' => 'Create a web panel. Example {"name": {"i18n": "","value": ""},"weight": 111,"url": "","authentication": "","location": "","key": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": {"invert": false,"params": {},"condition": ""},"type": ""}],"type": ""}],"icon": {"url": "","url@2x": ""}}.',
+            'description' => 'Create a web panel.',
             'args' => array (
                 array (
                     'name' => 'authToken',
@@ -2356,7 +2342,7 @@ return array (
                 array (
                     'name' => 'conditions',
                     'type' => 'Array',
-                    'info' => 'Conditions determine whether this web panel is shown. Example [{"invert": false,"params": {},"condition": "","conditions": [{"invert": false,"params": {},"condition": "","conditions": {"invert": false,"params": {},"condition": ""},"type": ""}],"type": ""}].',
+                    'info' => 'Array of JSON objects of conditions determine whether this web panel is shown.',
                     'required' => false,
                 ),
                 array (
@@ -2692,7 +2678,7 @@ return array (
                 array (
                     'name' => 'roomRoles',
                     'type' => 'Array',
-                    'info' => 'The list of roles for the user within the room.',
+                    'info' => 'Array of Strings. List of roles for the user within the room.',
                     'required' => false,
                 ),
             ),
@@ -2777,7 +2763,7 @@ return array (
         ),
         array (
             'name' => 'sendRoomNotification',
-            'description' => 'Send a message to a room. Example {"from": "","message_format": "","color": "","attach_to": "","notify": "","message": "","card": {"style": "","description": {"value": "","format": ""},"format": "","url": "","title": "","thumbnail": {"url": "","width": 300,"url@2x": "","height": 300},"activity": {"html": "","icon": {"url": "","url@2x": ""}},"attributes": [{"value": {"url": "","style": "","label": "","icon": {"url": "","url@2x": ""}},"label": ""}],"id": "","icon": {"url": "","url@2x": ""}}}.',
+            'description' => 'Send a message to a room.',
             'args' => array (
                 array (
                     'name' => 'authToken',
@@ -2908,7 +2894,7 @@ return array (
                 array (
                     'name' => 'cardAttributes',
                     'type' => 'Array',
-                    'info' => 'List of attributes to show below the card. Example [{"value": {"url": "","style": "","label": "","icon": {"url": "","url@2x": ""}},"label": ""}].',
+                    'info' => 'Array of JSON objects of list of attributes to show below the card.',
                     'required' => false,
                 ),
                 array (
@@ -3169,13 +3155,15 @@ return array (
     'custom' => array (
         'getAccessToken' => array (
             'dictionary' => array (
-                'clientId' => 'client_id',
-                'clientSecret' => 'client_secret',
-                'redirectUri' => 'redirect_uri',
                 'code' => 'code',
+                'userId' => 'userId',
+                'clientName' => 'clientName',
+                'redirectUri' => 'redirectUri',
+                'scope' => 'scope',
+                'groupId' => 'groupId',
             ),
             'vendorUrl' => 'https://api.coinbase.com/oauth/token',
-            'method' => 'POST',
+            'method' => 'POST-RAW',
             'custom' => true,
         ),
         'getCapabilities' => array (
@@ -3680,7 +3668,8 @@ return array (
                 'message' => 'message',
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/user/{{idOrName}}/share/file',
-            'method' => 'POST',
+            'method' => 'POST-RAW',
+            'custom' => true,
         ),
         'shareLinkWithUser' => array (
             'dictionary' => array (
@@ -3799,24 +3788,20 @@ return array (
                 'roomIdOrName' => 'roomIdOrName',
                 'url' => 'url',
                 'authentication' => 'authentication',
-                'optionsStyle' => 'options_style',
-                'optionsHintI18n' => 'options_hint_i18n',
-                'optionsHintValue' => 'options_hint_value',
-                'optionsFilterPlaceholderI18n' => 'options_filter_placeholder_i18n',
-                'optionsFilterPlaceholderValue' => 'options_filter_placeholder_value',
-                'primaryAction' => 'primaryAction',
-                'optionsPrimaryActionEnabled' => 'options_primaryAction_enabled',
-                'optionsPrimaryActionNameI18n' => 'options_primaryAction_name_i18n',
-                'optionsPrimaryActionNameValue' => 'options_primaryAction_name_value',
-                'optionsPrimaryActionKey' => 'options_primaryAction_key',
-                'optionsSecondaryActionsEnabled' => 'options_secondaryActions_enabled',
-                'optionsSecondaryActionsNameI18n' => 'options_secondaryActions_name_i18n',
-                'optionsSecondaryActionsNameValue' => 'options_secondaryActions_name_value',
-                'optionsSecondaryActionsKey' => 'options_secondaryActions_key',
-                'optionsSizeWidth' => 'options_size_width',
-                'optionsSizeHeight' => 'options_size_height',
-                'titleI18n' => 'title_i18n',
-                'titleValue' => 'title_value',
+                'optionsStyle' => 'optionsStyle',
+                'optionsHintI18n' => 'optionsHintI18n',
+                'optionsHintValue' => 'optionsHintValue',
+                'optionsFilterPlaceholderI18n' => 'optionsFilterPlaceholderI18n',
+                'optionsFilterPlaceholderValue' => 'optionsFilterPlaceholderValue',
+                'optionsPrimaryActionEnabled' => 'optionsPrimaryActionEnabled',
+                'optionsPrimaryActionNameI18n' => 'optionsPrimaryActionNameI18n',
+                'optionsPrimaryActionNameValue' => 'optionsPrimaryActionNameValue',
+                'optionsPrimaryActionKey' => 'optionsPrimaryActionKey',
+                'optionsSecondaryActions' => 'optionsSecondaryActions',
+                'optionsSizeWidth' => 'optionsSizeWidth',
+                'optionsSizeHeight' => 'optionsSizeHeight',
+                'titleI18n' => 'titleI18n',
+                'titleValue' => 'titleValue',
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/room/{{roomIdOrName}}/extension/dialog/{{key}}',
             'method' => 'PUT',
@@ -4059,28 +4044,28 @@ return array (
                 'authToken' => 'authToken',
                 'roomIdOrName' => 'roomIdOrName',
                 'from' => 'from',
-                'messageFormat' => 'message_format',
+                'messageFormat' => 'messageFormat',
                 'color' => 'color',
-                'attachTo' => 'attach_to',
+                'attachTo' => 'attachTo',
                 'notify' => 'notify',
                 'message' => 'message',
-                'cardStyle' => 'card_style',
-                'cardDescriptionValue' => 'card_description_value',
-                'cardDescriptionFormat' => 'card_description_format',
-                'cardFormat' => 'card_format',
-                'cardUrl' => 'card_url',
-                'cardTitle' => 'card_title',
-                'cardThumbnailUrl' => 'card_thumbnail_url',
-                'cardThumbnailWidth' => 'card_thumbnail_width',
-                'cardThumbnailUrl2x' => 'card_thumbnail_url2x',
-                'cardThumbnailHeight' => 'card_thumbnail_height',
-                'cardActivityHtml' => 'card_activity_html',
-                'cardActivityIconUrl' => 'card_activity_icon_url',
-                'cardActivityIconUrl2x' => 'card_activity_icon_url2x',
-                'cardAttributes' => 'card_attributes',
-                'cardId' => 'card_id',
-                'cardIconUrl' => 'card_icon_url',
-                'cardIconUrl2x' => 'card_icon_url2x',
+                'cardStyle' => 'cardStyle',
+                'cardDescriptionValue' => 'cardDescriptionValue',
+                'cardDescriptionFormat' => 'cardDescriptionFormat',
+                'cardFormat' => 'cardFormat',
+                'cardUrl' => 'cardUrl',
+                'cardTitle' => 'cardTitle',
+                'cardThumbnailUrl' => 'cardThumbnailUrl',
+                'cardThumbnailWidth' => 'cardThumbnailWidth',
+                'cardThumbnailUrl2x' => 'cardThumbnailUrl2x',
+                'cardThumbnailHeight' => 'cardThumbnailHeight',
+                'cardActivityHtml' => 'cardActivityHtml',
+                'cardActivityIconUrl' => 'cardActivityIconUrl',
+                'cardActivityIconUrl2x' => 'cardActivityIconUrl2x',
+                'cardAttributes' => 'cardAttributes',
+                'cardId' => 'cardId',
+                'cardIconUrl' => 'cardIconUrl',
+                'cardIconUrl2x' => 'cardIconUrl2x',
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/room/{{roomIdOrName}}/notification',
             'method' => 'POST',
@@ -4115,7 +4100,7 @@ return array (
                 'message' => 'message',
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/room/{{roomIdOrName}}/share/file',
-            'method' => 'POST',
+            'method' => 'POST-RAW',
             'custom' => true,
         ),
         'shareLinkWithRoom' => array (
