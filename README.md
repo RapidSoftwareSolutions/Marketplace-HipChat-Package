@@ -2,7 +2,7 @@
 
 # HipChat Package
 Connect to the HipChat Enterprise Messaging API to build bots or slash commands for this enterprise chat app. Test an API call and export the code snippet.
-* Domain: hipchat.com
+* Domain: [hipchat.com](hipchat.com)
 
 ## HipChat.getAccessToken
 Gets an OAuth token for requested grant type.
