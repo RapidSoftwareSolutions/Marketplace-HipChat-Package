@@ -195,6 +195,15 @@ class CustomModel
 
         return $result;
     }
+    public static function updateGroupAvatar($param, &$blockCustom, $vendorUrl){
+        $result = [];
+
+        $type = pathinfo($param['avatar'], PATHINFO_EXTENSION);
+        $data = file_get_contents($param['avatar']);
+        $result['avatar'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        return $result;
+    }
     public static function updateUser($param, &$blockCustom, $vendorUrl){
         $result = $param;
 
@@ -232,6 +241,15 @@ class CustomModel
         ]];
 
         return $clientSetup;
+    }
+    public static function updatePhoto($param, &$blockCustom, $vendorUrl){
+        $result = [];
+
+        $type = pathinfo($param['photo'], PATHINFO_EXTENSION);
+        $data = file_get_contents($param['photo']);
+        $result['photo'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        return $result;
     }
     public static function updateRoom($param, &$blockCustom, $vendorUrl){
         $result = $param;

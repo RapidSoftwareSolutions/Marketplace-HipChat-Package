@@ -338,7 +338,7 @@ Update a group avatar.
 |----------|-------|----------
 | authToken| String| API access token.
 | groupId  | String| The id of the group.
-| avatar   | String| The group avatar as a base64 encoded string.
+| avatar   | File  | The group avatar.
 
 ## HipChat.deleteGroupAvatar
 Delete group avatar.

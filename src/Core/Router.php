@@ -304,7 +304,7 @@ class Router
                 $method = 'POST';
             }else{
                 if(!is_string($sendBody)){
-                    $sendBody = json_encode($sendBody);
+                    $sendBody = json_encode($sendBody, JSON_UNESCAPED_SLASHES);
                 }
                 $clientSetup['body'] = $sendBody;
             }

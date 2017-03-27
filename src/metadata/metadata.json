@@ -1052,8 +1052,8 @@
                 },
                 {
                     "name": "avatar",
-                    "type": "String",
-                    "info": "The group avatar as a base64 encoded string.",
+                    "type": "File",
+                    "info": "The group avatar.",
                     "required": true
                 }
             ],

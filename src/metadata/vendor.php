@@ -799,8 +799,8 @@ return array (
                 ),
                 array (
                     'name' => 'avatar',
-                    'type' => 'String',
-                    'info' => 'The group avatar as a base64 encoded string.',
+                    'type' => 'File',
+                    'info' => 'The group avatar.',
                     'required' => true,
                 ),
             ),
@@ -3419,6 +3419,7 @@ return array (
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/group/{{groupId}}/avatar',
             'method' => 'PUT',
+            'custom' => true,
         ),
         'deleteGroupAvatar' => array (
             'dictionary' => array (
@@ -3651,6 +3652,7 @@ return array (
             ),
             'vendorUrl' => 'https://api.hipchat.com/v2/user/{{idOrEmail}}/photo',
             'method' => 'PUT',
+            'custom' => true,
         ),
         'deletePhoto' => array (
             'dictionary' => array (
