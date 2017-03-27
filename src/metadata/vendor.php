@@ -17,7 +17,7 @@ return array (
     ),
     'blocks' => array (
         array (
-            'name' => 'getAccessToken',
+            'name' => 'getAddOnAuthToken',
             'description' => 'Gets an temporary OAuth token for requested grant type.',
             'args' => array (
                 array (

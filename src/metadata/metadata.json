@@ -21,7 +21,7 @@
     },
     "blocks": [
         {
-            "name": "getAccessToken",
+            "name": "getAddOnAuthToken",
             "description": "Gets an temporary OAuth token for requested grant type.",
             "args": [
                 {
