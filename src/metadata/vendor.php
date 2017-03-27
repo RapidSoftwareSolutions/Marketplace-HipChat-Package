@@ -10,13 +10,28 @@ return array (
     ),
     'accounts' => array (
         'domain' => 'hipchat.com',
-        'credentials' => array (),
+        'credentials' => array (
+            'userLogin',
+            'userPassword',
+        ),
     ),
     'blocks' => array (
         array (
             'name' => 'getAccessToken',
-            'description' => 'Gets an OAuth token for requested grant type.',
+            'description' => 'Gets an temporary OAuth token for requested grant type.',
             'args' => array (
+                array (
+                    'name' => 'userLogin',
+                    'type' => 'credentials',
+                    'info' => 'User login for basic Authentication.',
+                    'required' => true,
+                ),
+                array (
+                    'name' => 'userPassword',
+                    'type' => 'credentials',
+                    'info' => 'User password for basic Authentication.',
+                    'required' => true,
+                ),
                 array (
                     'name' => 'code',
                     'type' => 'String',
@@ -3155,6 +3170,7 @@ return array (
     'custom' => array (
         'getAccessToken' => array (
             'dictionary' => array (
+                'authToken' => 'authToken',
                 'code' => 'code',
                 'userId' => 'userId',
                 'clientName' => 'clientName',

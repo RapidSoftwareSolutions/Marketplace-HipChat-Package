@@ -13,7 +13,8 @@ class CustomModel
 {
     public static function getAccessToken($param, &$blockCustom, $vendorUrl){
         $clientSetup = [];
-        $clientSetup['form_params'] = [
+        $clientSetup['headers']['Authorization'] = 'Basic ' . base64_encode($param['userLogin'].':'.$param['userPassword']);
+            $clientSetup['form_params'] = [
             'code' => $param['code'],
             'user_id' => $param['userId'],
             'client_name' => $param['clientName'],

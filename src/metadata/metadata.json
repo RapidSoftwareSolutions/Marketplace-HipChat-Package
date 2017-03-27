@@ -14,13 +14,28 @@
     ],
     "accounts": {
         "domain": "hipchat.com",
-        "credentials": []
+        "credentials": [
+            "userLogin",
+            "userPassword"
+        ]
     },
     "blocks": [
         {
             "name": "getAccessToken",
-            "description": "Gets an OAuth token for requested grant type.",
+            "description": "Gets an temporary OAuth token for requested grant type.",
             "args": [
+                {
+                    "name": "userLogin",
+                    "type": "credentials",
+                    "info": "User login for basic Authentication.",
+                    "required": true
+                },
+                {
+                    "name": "userPassword",
+                    "type": "credentials",
+                    "info": "User password for basic Authentication.",
+                    "required": true
+                },
                 {
                     "name": "code",
                     "type": "String",

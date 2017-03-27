@@ -3,18 +3,38 @@
 # HipChat Package
 Connect to the HipChat Enterprise Messaging API to build bots or slash commands for this enterprise chat app. Test an API call and export the code snippet.
 * Domain: [hipchat.com](https://hipchat.com/)
+* Credentials: userLogin, userPassword
 
-## HipChat.getAccessToken
-Gets an OAuth token for requested grant type.
+## How to get credentials:
+0. Sign up in [HipChat](https://www.hipchat.com/sign_up).
+1. Navigate to My account / Edit Profile / API access.
+2. In "Create new token" section set Label and choose Scopes and Click "Create".
+3. Use Token as authToken option.
+4. Alternative you can use getAccessToken block to get authToken, that can be use to make operation with your add-on behalf of user.
 
-| Field      | Type  | Description
-|------------|-------|----------
-| code       | String| The authorization code to exchange for an access token.
-| userId     | String| The id of the user the token is acting on behalf of.
-| clientName | String| The name of the public oauth client retrieving a token for.
-| redirectUri| String| The URL that was used to generate an authorization code, and it must match that value.
-| scope      | String| A space-delimited list of scopes that is requested.
-| groupId    | String| The name of the group to which the related user belongs.
+## HipChat.getAddOnAuthToken
+Gets an temporary OAuth token for requested grant type. Used for get accessToken for your add-on.
+Send your user to:
+```
+https://www.hipchat.com/users/authorize?response_type=code
+    &scope=view_group+send_notification
+    &signup=1
+    &client_id=<oauth client id>
+    &state=<xsrf_token>
+    &redirect_uri=https://example.com/oauth2/cb
+```
+From your add-on preferences and answer URL, get needed parameters for retrieve accessToken.
+
+| Field       | Type       | Description
+|-------------|------------|----------
+| userLogin   | credentials| User login for basic Authentication.
+| userPassword| credentials| User password for basic Authentication.
+| code        | String     | The authorization code to exchange for an access token.
+| userId      | String     | The id of the user the token is acting on behalf of.
+| clientName  | String     | The name of the public oauth client retrieving a token for.
+| redirectUri | String     | The URL that was used to generate an authorization code, and it must match that value.
+| scope       | String     | A space-delimited list of scopes that is requested.
+| groupId     | String     | The name of the group to which the related user belongs.
 
 ## HipChat.getCapabilities
 Gets the capabilities descriptor.
