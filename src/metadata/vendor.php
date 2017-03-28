@@ -3168,7 +3168,7 @@ return array (
         ),
     ),
     'custom' => array (
-        'getAccessToken' => array (
+        'getAddOnAuthToken' => array (
             'dictionary' => array (
                 'authToken' => 'authToken',
                 'code' => 'code',

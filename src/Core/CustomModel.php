@@ -11,7 +11,7 @@ if ( ! defined( 'RAPID_IN' ) ) exit( 'No direct script access allowed' );
  */
 class CustomModel
 {
-    public static function getAccessToken($param, &$blockCustom, $vendorUrl){
+    public static function getAddOnAuthToken($param, &$blockCustom, $vendorUrl){
         $clientSetup = [];
         $clientSetup['headers']['Authorization'] = 'Basic ' . base64_encode($param['userLogin'].':'.$param['userPassword']);
             $clientSetup['form_params'] = [
